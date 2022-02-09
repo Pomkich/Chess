@@ -4,11 +4,16 @@
 #include <iostream>
 #include "Constants.h"
 #include "Coordinate.h"
+#include "Desk.h"
 
 using namespace std;
 
 int main()
 {
-    Coordinate coord(Horizontal::A, Vertical::One);
+    Desk desk;
+    desk.CalculateAttackedCells(Color::White);
+    desk.Draw();
+    desk.GetAttackedCells(Color::Black);
 
+    return 1;
 }

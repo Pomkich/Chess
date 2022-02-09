@@ -7,3 +7,11 @@ enum class Horizontal {
 enum class Vertical {
 	One = 0, Two, Three, Four, Five, Six, Seven, Eigth
 };
+
+enum class FigureType {
+	Pawn, Horse, Rook, Bishop, Queen, King
+};
+
+enum class Color {	// of player
+	White, Black
+};
