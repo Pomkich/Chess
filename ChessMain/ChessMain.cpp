@@ -2,8 +2,15 @@
 //
 
 #include <iostream>
+#include "Constants.h"
+#include "Coordinate.h"
+
+using namespace std;
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    Coordinate coord(Horizontal::A, Vertical::One);
+
+    cout << coord;
+
 }
