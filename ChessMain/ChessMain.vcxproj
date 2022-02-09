@@ -147,6 +147,7 @@
     <ClInclude Include="Coordinate.h" />
     <ClInclude Include="Desk.h" />
     <ClInclude Include="Figure.h" />
+    <ClInclude Include="Pawn.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

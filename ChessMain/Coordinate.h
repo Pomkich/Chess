@@ -3,11 +3,10 @@
 #include <iostream>
 
 class Coordinate {
-private:
+public:
 	Horizontal hor;
 	Vertical ver;
-
-public:
+	
 	Coordinate() : hor(Horizontal::A), ver(Vertical::One) {};
 	Coordinate(Horizontal new_hor, Vertical new_ver) : hor(new_hor), ver(new_ver) {};
 

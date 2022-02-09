@@ -5,15 +5,13 @@
 #include "Constants.h"
 #include "Coordinate.h"
 #include "Desk.h"
+#include "Pawn.h"
 
 using namespace std;
 
 int main()
 {
-    Desk desk;
-    desk.CalculateAttackedCells(Color::White);
-    desk.Draw();
-    desk.GetAttackedCells(Color::Black);
+    unique_ptr<Figure> pawn1 = make_unique<Pawn>(Color::White);
 
-    return 1;
+    return 0;
 }

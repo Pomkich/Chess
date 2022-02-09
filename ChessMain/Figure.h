@@ -6,7 +6,7 @@
 using namespace std;
 
 class Figure {
-private:
+protected:
 	Color color;
 	FigureType type;	// used for the convenience of rendering
 	Coordinate current_pos;	// position of figure on board
@@ -15,7 +15,7 @@ private:
 	int move_range;
 
 public:
-	virtual void CalculateAttackedCells(list<unique_ptr<Figure>> figures) = 0;	// defines move cells for this figure; takes all figures on desk
+	virtual void CalculateAttackedCells(const list<shared_ptr<Figure>> figures) = 0;	// defines move cells for this figure; takes all figures on desk
 	list<Coordinate> GetMoveCells() { return move_cells; };
 
 	void SetPosition(Coordinate pos) { current_pos = pos; }
