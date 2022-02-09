@@ -11,6 +11,4 @@ int main()
 {
     Coordinate coord(Horizontal::A, Vertical::One);
 
-    cout << coord;
-
 }
