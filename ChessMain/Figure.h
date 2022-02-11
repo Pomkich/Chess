@@ -23,4 +23,6 @@ public:
 
 	void SetColor(Color col) { color = col; }
 	Color GetColor() { return color; }
+
+	FigureType GetType() { return type; }
 };

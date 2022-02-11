@@ -11,7 +11,8 @@ using namespace std;
 
 int main()
 {
-    unique_ptr<Figure> pawn1 = make_unique<Pawn>(Color::White);
+    Desk ds;
+    ds.Draw();
 
     return 0;
 }

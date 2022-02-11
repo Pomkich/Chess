@@ -5,6 +5,7 @@
 #include <set>
 #include "Coordinate.h"
 #include "Figure.h"
+#include "Pawn.h"
 
 using namespace std;
 
@@ -15,14 +16,10 @@ private:
 	set<Coordinate> attacked_cells[2];	// one coordinate can't be duplicated, so set is used
 
 public:
-
 	Desk();
 	void CalculateAttackedCells(Color col);
 	set<Coordinate> GetAttackedCells(Color col);
-	//		//////////////////
-	//		commented out until at least one derived Figure class has been created
-	// unique_ptr<Figure> GetFigure(const Coordinate figure_pos);
-	// list<unique_ptr<Figure>> GetFigures(Color col);	// probably need to pass by value
-	//		//////////////////
+	unique_ptr<Figure> GetFigure(const Coordinate figure_pos);
+	list<unique_ptr<Figure>> GetFigures(Color col);	// probably need to pass by value
 	void Draw();
 };
