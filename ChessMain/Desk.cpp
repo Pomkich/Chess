@@ -3,22 +3,16 @@
 Desk::Desk() {
 	cout << "desk created" << endl;
 
-	PlaceFigure(FigureType::Pawn, Color::White, Coordinate(Horizontal::A, Vertical::Two));
+	PlaceFigure(FigureType::Pawn, Color::White, Coordinate(Horizontal::B, Vertical::Two));
+	PlaceFigure(FigureType::Pawn, Color::Black, Coordinate(Horizontal::A, Vertical::Three));
+	PlaceFigure(FigureType::Pawn, Color::Black, Coordinate(Horizontal::C, Vertical::Three));
 
-	// for test
-	/*shared_ptr<Figure> pawn = make_shared<Pawn>(Color::White);
-	pawn->SetPosition(Coordinate(Horizontal::A, Vertical::Two));
-	figures[0].push_back(pawn);
-
-	list<shared_ptr<Figure>> all_figures = figures[0];
-	all_figures.insert(all_figures.end(), figures[1].begin(), figures[1].end());
-
-	pawn->CalculateAttackedCells(all_figures);
-	auto move_cells = pawn->GetMoveCells();
-	for (auto cell : move_cells) {
+	figures[0].begin()->get()->CalculateAttackedCells(field);
+	auto move_cell = figures[0].begin()->get()->GetMoveCells();
+	for (auto cell : move_cell) {
 		cout << cell;
-	}*/
-	/////////////
+	}
+
 }
 
 void Desk::CalculateAttackedCells(Color col) {
@@ -34,6 +28,10 @@ void Desk::PlaceFigure(FigureType type, Color color, Coordinate pos) {
 	int hor = (int)pos.hor, ver = (int)pos.ver;
 	if ((hor < 0 && hor > 7) && (ver < 0 && ver > 7)) {	// if in bounds
 		cout << "out of bouls in Desk::PlaceFigure" << endl;
+		return;
+	}
+	if (field[ver][hor].has_figure) {
+		cout << "cell already have a figure Desk::PlaceFigure" << endl;
 		return;
 	}
 
@@ -65,7 +63,7 @@ void Desk::Draw() {
 	list<shared_ptr<Figure>> all_figures = figures[0];
 	all_figures.insert(all_figures.end(), figures[1].begin(), figures[1].end());
 
-	cout << "     A   B   C   D   E   F   G   H  " << endl;
+	cout << "     A    B    C    D    E    F    G    H   " << endl;
 	for (int y = 0; y < 8; y++) {
 		cout << "   .____.____.____.____.____.____.____.____." << endl;
 		cout << y + 1 << "  ";
