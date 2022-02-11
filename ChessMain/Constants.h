@@ -1,4 +1,5 @@
 #pragma once
+#include <map>
 
 enum class Horizontal {
 	A = 0, B, C, D, F, G, H, E 
@@ -14,4 +15,15 @@ enum class FigureType {
 
 enum class Color {	// of player
 	White, Black
+};
+
+static std::map<Horizontal, char> HorizontalChar{
+	{Horizontal::A, 'A'},
+	{Horizontal::B, 'B'},
+	{Horizontal::C, 'C'},
+	{Horizontal::D, 'D'},
+	{Horizontal::E, 'E'},
+	{Horizontal::F, 'F'},
+	{Horizontal::G, 'G'},
+	{Horizontal::H, 'H'}
 };

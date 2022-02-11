@@ -15,6 +15,6 @@ public:
 	}
 
 	friend std::ostream& operator<<(std::ostream& os, const Coordinate& coord) {
-		return os << static_cast<int>(coord.hor) << ":" << static_cast<int>(coord.ver) << std::endl;
+		return os << HorizontalChar[coord.hor] << ":" << static_cast<int>(coord.ver) + 1 << std::endl;
 	}
 };

@@ -6,6 +6,15 @@ Desk::Desk() {
 	shared_ptr<Figure> pawn = make_shared<Pawn>(Color::White);
 	pawn->SetPosition(Coordinate(Horizontal::A, Vertical::Two));
 	figures[0].push_back(pawn);
+
+	list<shared_ptr<Figure>> all_figures = figures[0];
+	all_figures.insert(all_figures.end(), figures[1].begin(), figures[1].end());
+
+	pawn->CalculateAttackedCells(all_figures);
+	auto move_cells = pawn->GetMoveCells();
+	for (auto cell : move_cells) {
+		cout << cell;
+	}
 	/////////////
 }
 

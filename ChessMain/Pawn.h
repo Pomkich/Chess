@@ -13,20 +13,20 @@ public:
 		move_range = 1;
 
 		if (color == Color::White) {
-			move_vectors = { {1, 0} };
+			move_vectors = { {0, 1} };
 		}
 		else {
-			move_vectors = { {-1, 0} };
+			move_vectors = { {0, -1} };
 		}
 	}
 
 	void CheckSideCells(const list<shared_ptr<Figure>> figures) {
 		list<pair<int, int>> side_vectors;
 		if (color == Color::White) {
-			side_vectors = { {1, 1}, {1, -1} };
+			side_vectors = { {1, 1}, {-1, 1} };
 		}
 		else {
-			side_vectors = { {-1, 1}, {-1, -1} };
+			side_vectors = { {1, -1}, {-1, -1} };
 		}
 
 		for (auto vec : side_vectors) {
