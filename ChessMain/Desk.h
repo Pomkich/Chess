@@ -6,6 +6,10 @@
 #include "Coordinate.h"
 #include "Figure.h"
 #include "Pawn.h"
+#include "Rook.h"
+#include "Bishop.h"
+#include "King.h"
+#include "Queen.h"
 #include "Cell.h"
 
 using namespace std;

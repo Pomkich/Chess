@@ -143,12 +143,17 @@
     <ClCompile Include="Desk.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bishop.h" />
+    <ClInclude Include="Rook.h" />
     <ClInclude Include="Cell.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Coordinate.h" />
     <ClInclude Include="Desk.h" />
     <ClInclude Include="Figure.h" />
+    <ClInclude Include="Horse.h" />
+    <ClInclude Include="King.h" />
     <ClInclude Include="Pawn.h" />
+    <ClInclude Include="Queen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

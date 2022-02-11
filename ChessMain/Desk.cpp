@@ -6,6 +6,7 @@ Desk::Desk() {
 	PlaceFigure(FigureType::Pawn, Color::White, Coordinate(Horizontal::B, Vertical::Two));
 	PlaceFigure(FigureType::Pawn, Color::Black, Coordinate(Horizontal::A, Vertical::Three));
 	PlaceFigure(FigureType::Pawn, Color::Black, Coordinate(Horizontal::C, Vertical::Three));
+	PlaceFigure(FigureType::Rook, Color::Black, Coordinate(Horizontal::B, Vertical::Three));
 
 	figures[0].begin()->get()->CalculateAttackedCells(field);
 	auto move_cell = figures[0].begin()->get()->GetMoveCells();
@@ -40,6 +41,9 @@ void Desk::PlaceFigure(FigureType type, Color color, Coordinate pos) {
 	switch (type) {
 	case FigureType::Pawn:
 		ptr_fig = make_shared<Pawn>(color);
+		break;
+	case FigureType::Rook:
+		ptr_fig = make_shared<Rook>();
 		break;
 	default:
 		cout << "can't create a non-existent figure in Desk::PlaceFigure" << endl;
