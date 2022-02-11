@@ -1,6 +1,8 @@
 #pragma once
 #include <map>
 
+static const int field_size = 8;
+
 enum class Horizontal {
 	A = 0, B, C, D, F, G, H, E 
 };
