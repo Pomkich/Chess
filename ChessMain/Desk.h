@@ -6,33 +6,9 @@
 #include "Coordinate.h"
 #include "Figure.h"
 #include "Pawn.h"
+#include "Cell.h"
 
 using namespace std;
-
-struct Cell {
-	bool has_figure;
-	Coordinate position;
-
-	// if figure in cell
-	Color color;
-	FigureType type;
-
-	Cell() { 
-		has_figure = false; 
-		position.hor = Horizontal::A; 
-		position.ver = Vertical::One;
-		color = Color::White;
-		type = FigureType::Pawn;
-	}
-
-	Cell(Horizontal new_hor, Vertical new_ver) { 
-		has_figure = false; 
-		position.hor = new_hor; 
-		position.ver = new_ver; 
-		color = Color::White;
-		type = FigureType::Pawn;
-	}
-};
 
 class Desk {
 private:
@@ -44,7 +20,7 @@ public:
 	Desk();
 	void CalculateAttackedCells(Color col);
 	set<Coordinate> GetAttackedCells(Color col);
+	void PlaceFigure(FigureType type, Color color, Coordinate pos);
 	unique_ptr<Figure> GetFigure(const Coordinate figure_pos);
-	list<unique_ptr<Figure>> GetFigures(Color col);	// probably need to pass by value
 	void Draw();
 };

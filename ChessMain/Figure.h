@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "Coordinate.h"
+#include "Cell.h"
 #include <list>
 
 using namespace std;
@@ -15,7 +16,7 @@ protected:
 	int move_range;
 
 public:
-	virtual void CalculateAttackedCells(const list<shared_ptr<Figure>> figures) = 0;	// defines move cells for this figure; takes all figures on desk
+	virtual void CalculateAttackedCells(const array<array<Cell, field_size>, field_size> desk) = 0;	// defines move cells for this figure; takes all figures on desk
 	list<Coordinate> GetMoveCells() { return move_cells; };
 
 	void SetPosition(Coordinate pos) { current_pos = pos; }
