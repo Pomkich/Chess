@@ -40,13 +40,13 @@ public:
 			hor += vec.first;
 			ver += vec.second;
 
-			if ((hor >= 0 && hor <= 7) && (ver >= 0 && ver <= 7)) {	// if in bounds
-				if (desk[ver][hor].has_figure && desk[ver][hor].color != color) {	// if cell has enemy figure
-					move_cells.push_back(Coordinate((Horizontal)hor, (Vertical)ver));
-				}
+			if (Coordinate::InBounds(hor, ver) && 
+				(desk[ver][hor].has_figure && desk[ver][hor].color != color)) {	// if cell has enemy figure
+				move_cells.push_back(Coordinate((Horizontal)hor, (Vertical)ver));
 			}
 		}
 	}
+
 	// Pawn can attack side cells, but but moves only forward
 	virtual void CalculateAttackedCells(const array<array<Cell, field_size>, field_size> desk) override {
 		move_cells.clear();
@@ -56,19 +56,15 @@ public:
 		hor += move_vectors.front().first;	// pawn can move only forward, so here is one vector in begining
 		ver += move_vectors.front().second;
 
-		if ((hor >= 0 && hor <= 7) && (ver >= 0 && ver <= 7)) {	// if in bounds
-			if (!desk[ver][hor].has_figure) {	// if cell dont have figure
-				move_cells.push_back(Coordinate((Horizontal)hor, (Vertical)ver));
+		if (Coordinate::InBounds(hor, ver) && !desk[ver][hor].has_figure) {
+			move_cells.push_back(Coordinate((Horizontal)hor, (Vertical)ver));
 
-				if (!walked) {	// pawn can make two steps at first turn
-					hor += move_vectors.front().first;
-					ver += move_vectors.front().second;
+			if (!walked) {	// pawn can make two steps at first turn
+				hor += move_vectors.front().first;
+				ver += move_vectors.front().second;
 
-					if ((hor >= 0 && hor <= 7) && (ver >= 0 && ver <= 7)) {	// if in bounds
-						if (!desk[ver][hor].has_figure) {	// if cell dont have figure
-							move_cells.push_back(Coordinate((Horizontal)hor, (Vertical)ver));
-						}
-					}
+				if (Coordinate::InBounds(hor, ver) && !desk[ver][hor].has_figure) {
+					move_cells.push_back(Coordinate((Horizontal)hor, (Vertical)ver));
 				}
 			}
 		}

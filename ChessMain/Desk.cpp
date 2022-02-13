@@ -3,11 +3,11 @@
 Desk::Desk() {
 	cout << "desk created" << endl;
 
-	PlaceFigure(FigureType::King, Color::White, Coordinate(Horizontal::E, Vertical::Four));
-	PlaceFigure(FigureType::Pawn, Color::White, Coordinate(Horizontal::E, Vertical::Three));
 	PlaceFigure(FigureType::Pawn, Color::Black, Coordinate(Horizontal::F, Vertical::Four));
-	figures[0].begin()->get()->CalculateAttackedCells(field);
-	auto move_cell = figures[0].begin()->get()->GetMoveCells();
+	PlaceFigure(FigureType::Pawn, Color::White, Coordinate(Horizontal::E, Vertical::Three));
+	PlaceFigure(FigureType::King, Color::White, Coordinate(Horizontal::E, Vertical::Four));
+	figures[1].begin()->get()->CalculateAttackedCells(field);
+	auto move_cell = figures[1].begin()->get()->GetMoveCells();
 	for (auto cell : move_cell) {
 		cout << cell;
 	}
