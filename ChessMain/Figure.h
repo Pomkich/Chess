@@ -13,7 +13,6 @@ protected:
 	Coordinate current_pos;	// position of figure on board
 	list<Coordinate> move_cells;	// the cells into which the figure can go
 	list<pair<int, int>> move_vectors;	// used for implementing movement
-	int move_range;
 
 public:
 	virtual void CalculateAttackedCells(const array<array<Cell, field_size>, field_size> desk) = 0;	// defines move cells for this figure; takes all figures on desk

@@ -6,11 +6,17 @@ private:
 	bool walked;
 
 public:
+	Pawn() {
+		type = FigureType::Pawn;
+		color = Color::White;
+		walked = false;
+		move_vectors = { {0, 1} };
+	}
+
 	Pawn(Color col) {
 		type = FigureType::Pawn;
 		color = col;
 		walked = false;
-		move_range = 1;
 
 		if (color == Color::White) {
 			move_vectors = { {0, 1} };

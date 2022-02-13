@@ -5,6 +5,16 @@ class Horse : public Figure {
 public:
 	Horse() {
 		type = FigureType::Horse;
+		color = Color::White;
+		move_vectors = {
+			{2, 1}, {2, -1}, {-2, 1}, {-2, -1},
+			{1, 2}, {-1, 2}, {1, -2}, {-1, -2}
+		};
+	}
+
+	Horse(Color col) {
+		type = FigureType::Horse;
+		color = col;
 		move_vectors = {
 			{2, 1}, {2, -1}, {-2, 1}, {-2, -1},
 			{1, 2}, {-1, 2}, {1, -2}, {-1, -2}

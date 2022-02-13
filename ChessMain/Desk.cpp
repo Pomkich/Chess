@@ -3,24 +3,14 @@
 Desk::Desk() {
 	cout << "desk created" << endl;
 
-	PlaceFigure(FigureType::Horse, Color::White, Coordinate(Horizontal::E, Vertical::Four));
+	PlaceFigure(FigureType::Bishop, Color::White, Coordinate(Horizontal::E, Vertical::Four));
+	PlaceFigure(FigureType::Pawn, Color::White, Coordinate(Horizontal::C, Vertical::Two));
+	PlaceFigure(FigureType::Pawn, Color::Black, Coordinate(Horizontal::G, Vertical::Two));
 	figures[0].begin()->get()->CalculateAttackedCells(field);
 	auto move_cell = figures[0].begin()->get()->GetMoveCells();
 	for (auto cell : move_cell) {
 		cout << cell;
 	}
-
-	/*PlaceFigure(FigureType::Pawn, Color::White, Coordinate(Horizontal::B, Vertical::Two));
-	PlaceFigure(FigureType::Pawn, Color::Black, Coordinate(Horizontal::A, Vertical::Three));
-	PlaceFigure(FigureType::Pawn, Color::Black, Coordinate(Horizontal::C, Vertical::Three));
-	PlaceFigure(FigureType::Rook, Color::Black, Coordinate(Horizontal::B, Vertical::Three));
-
-	figures[0].begin()->get()->CalculateAttackedCells(field);
-	auto move_cell = figures[0].begin()->get()->GetMoveCells();
-	for (auto cell : move_cell) {
-		cout << cell;
-	}*/
-
 }
 
 void Desk::CalculateAttackedCells(Color col) {
@@ -50,7 +40,10 @@ void Desk::PlaceFigure(FigureType type, Color color, Coordinate pos) {
 		ptr_fig = make_shared<Pawn>(color);
 		break;
 	case FigureType::Horse:
-		ptr_fig = make_shared<Horse>();
+		ptr_fig = make_shared<Horse>(color);
+		break;
+	case FigureType::Bishop:
+		ptr_fig = make_shared<Bishop>(color);
 		break;
 	case FigureType::Rook:
 		ptr_fig = make_shared<Rook>();
@@ -93,3 +86,22 @@ void Desk::Draw() {
 	}
 	cout << "   .____.____.____.____.____.____.____.____." << endl;
 }
+
+
+/*PlaceFigure(FigureType::Horse, Color::White, Coordinate(Horizontal::E, Vertical::Four));
+	figures[0].begin()->get()->CalculateAttackedCells(field);
+	auto move_cell = figures[0].begin()->get()->GetMoveCells();
+	for (auto cell : move_cell) {
+		cout << cell;
+	}*/
+
+	/*PlaceFigure(FigureType::Pawn, Color::White, Coordinate(Horizontal::B, Vertical::Two));
+	PlaceFigure(FigureType::Pawn, Color::Black, Coordinate(Horizontal::A, Vertical::Three));
+	PlaceFigure(FigureType::Pawn, Color::Black, Coordinate(Horizontal::C, Vertical::Three));
+	PlaceFigure(FigureType::Rook, Color::Black, Coordinate(Horizontal::B, Vertical::Three));
+
+	figures[0].begin()->get()->CalculateAttackedCells(field);
+	auto move_cell = figures[0].begin()->get()->GetMoveCells();
+	for (auto cell : move_cell) {
+		cout << cell;
+	}*/
