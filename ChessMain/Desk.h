@@ -7,6 +7,7 @@
 #include "Figure.h"
 #include "Pawn.h"
 #include "Rook.h"
+#include "Horse.h"
 #include "Bishop.h"
 #include "King.h"
 #include "Queen.h"

@@ -3,7 +3,14 @@
 Desk::Desk() {
 	cout << "desk created" << endl;
 
-	PlaceFigure(FigureType::Pawn, Color::White, Coordinate(Horizontal::B, Vertical::Two));
+	PlaceFigure(FigureType::Horse, Color::White, Coordinate(Horizontal::E, Vertical::Four));
+	figures[0].begin()->get()->CalculateAttackedCells(field);
+	auto move_cell = figures[0].begin()->get()->GetMoveCells();
+	for (auto cell : move_cell) {
+		cout << cell;
+	}
+
+	/*PlaceFigure(FigureType::Pawn, Color::White, Coordinate(Horizontal::B, Vertical::Two));
 	PlaceFigure(FigureType::Pawn, Color::Black, Coordinate(Horizontal::A, Vertical::Three));
 	PlaceFigure(FigureType::Pawn, Color::Black, Coordinate(Horizontal::C, Vertical::Three));
 	PlaceFigure(FigureType::Rook, Color::Black, Coordinate(Horizontal::B, Vertical::Three));
@@ -12,7 +19,7 @@ Desk::Desk() {
 	auto move_cell = figures[0].begin()->get()->GetMoveCells();
 	for (auto cell : move_cell) {
 		cout << cell;
-	}
+	}*/
 
 }
 
@@ -41,6 +48,9 @@ void Desk::PlaceFigure(FigureType type, Color color, Coordinate pos) {
 	switch (type) {
 	case FigureType::Pawn:
 		ptr_fig = make_shared<Pawn>(color);
+		break;
+	case FigureType::Horse:
+		ptr_fig = make_shared<Horse>();
 		break;
 	case FigureType::Rook:
 		ptr_fig = make_shared<Rook>();
