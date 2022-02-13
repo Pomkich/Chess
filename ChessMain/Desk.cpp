@@ -3,9 +3,9 @@
 Desk::Desk() {
 	cout << "desk created" << endl;
 
-	PlaceFigure(FigureType::Bishop, Color::White, Coordinate(Horizontal::E, Vertical::Four));
-	PlaceFigure(FigureType::Pawn, Color::White, Coordinate(Horizontal::C, Vertical::Two));
-	PlaceFigure(FigureType::Pawn, Color::Black, Coordinate(Horizontal::G, Vertical::Two));
+	PlaceFigure(FigureType::King, Color::White, Coordinate(Horizontal::E, Vertical::Four));
+	PlaceFigure(FigureType::Pawn, Color::White, Coordinate(Horizontal::E, Vertical::Three));
+	PlaceFigure(FigureType::Pawn, Color::Black, Coordinate(Horizontal::F, Vertical::Four));
 	figures[0].begin()->get()->CalculateAttackedCells(field);
 	auto move_cell = figures[0].begin()->get()->GetMoveCells();
 	for (auto cell : move_cell) {
@@ -46,7 +46,13 @@ void Desk::PlaceFigure(FigureType type, Color color, Coordinate pos) {
 		ptr_fig = make_shared<Bishop>(color);
 		break;
 	case FigureType::Rook:
-		ptr_fig = make_shared<Rook>();
+		ptr_fig = make_shared<Rook>(color);
+		break;
+	case FigureType::Queen:
+		ptr_fig = make_shared<Queen>(color);
+		break;
+	case FigureType::King:
+		ptr_fig = make_shared<King>(color);
 		break;
 	default:
 		cout << "can't create a non-existent figure in Desk::PlaceFigure" << endl;
