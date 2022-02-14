@@ -1,11 +1,35 @@
 #include "Desk.h"
 
 Desk::Desk() {
-	cout << "desk created" << endl;
+}
 
-	PlaceFigure(FigureType::Pawn, Color::Black, Coordinate(Horizontal::F, Vertical::Four));
-	PlaceFigure(FigureType::Pawn, Color::White, Coordinate(Horizontal::E, Vertical::Three));
-	PlaceFigure(FigureType::King, Color::White, Coordinate(Horizontal::D, Vertical::Four));
+void Desk::PlaceDefaultFigures() {
+	// placing Pawns
+	for (int i = 0; i < field_size; i++) {
+		PlaceFigure(FigureType::Pawn, Color::White, Coordinate((Horizontal)i, Vertical::Two));
+		PlaceFigure(FigureType::Pawn, Color::Black, Coordinate((Horizontal)i, Vertical::Seven));
+	}
+
+	PlaceFigure(FigureType::Rook, Color::White, Coordinate(Horizontal::A, Vertical::One));
+	PlaceFigure(FigureType::Rook, Color::White, Coordinate(Horizontal::H, Vertical::One));
+	PlaceFigure(FigureType::Rook, Color::Black, Coordinate(Horizontal::A, Vertical::Eigth));
+	PlaceFigure(FigureType::Rook, Color::Black, Coordinate(Horizontal::H, Vertical::Eigth));
+
+	PlaceFigure(FigureType::Horse, Color::White, Coordinate(Horizontal::B, Vertical::One));
+	PlaceFigure(FigureType::Horse, Color::White, Coordinate(Horizontal::G, Vertical::One));
+	PlaceFigure(FigureType::Horse, Color::Black, Coordinate(Horizontal::B, Vertical::Eigth));
+	PlaceFigure(FigureType::Horse, Color::Black, Coordinate(Horizontal::G, Vertical::Eigth));
+
+	PlaceFigure(FigureType::Bishop, Color::White, Coordinate(Horizontal::C, Vertical::One));
+	PlaceFigure(FigureType::Bishop, Color::White, Coordinate(Horizontal::F, Vertical::One));
+	PlaceFigure(FigureType::Bishop, Color::Black, Coordinate(Horizontal::C, Vertical::Eigth));
+	PlaceFigure(FigureType::Bishop, Color::Black, Coordinate(Horizontal::F, Vertical::Eigth));
+
+	PlaceFigure(FigureType::Queen, Color::White, Coordinate(Horizontal::D, Vertical::One));
+	PlaceFigure(FigureType::King, Color::White, Coordinate(Horizontal::E, Vertical::One));
+
+	PlaceFigure(FigureType::Queen, Color::Black, Coordinate(Horizontal::D, Vertical::Eigth));
+	PlaceFigure(FigureType::King, Color::Black, Coordinate(Horizontal::E, Vertical::Eigth));
 }
 
 void Desk::CalculateAttackedCells() {
@@ -82,9 +106,28 @@ shared_ptr<Figure> Desk::GetFigure(const Coordinate figure_pos) {
 		[figure_pos](shared_ptr<Figure> fig) { return Coordinate::Compare(figure_pos, fig->GetPosition()); });
 
 	if (figure == all_figures.end()) {
-		cout << "cell don't have a figure" << endl;
+		return shared_ptr<Figure>();	// nullptr
 	}
 	return *figure;
+}
+// must delete figures (?) no
+void Desk::MoveFigure(Coordinate from, Coordinate to) {
+	shared_ptr<Figure> figure = GetFigure(from);
+	shared_ptr<Figure> side_figure = GetFigure(to);
+	// if figure in 'from' coordinate found and 'to' coordinate has no figure
+	if (figure != nullptr && side_figure == nullptr) {
+		pair<int, int> coord_from = from.ToInt();
+		pair<int, int> coord_to = to.ToInt();
+
+		field[coord_from.second][coord_from.first].has_figure = false;
+		field[coord_to.second][coord_to.first].has_figure = true;
+		field[coord_to.second][coord_to.first].color = figure->GetColor();
+		field[coord_to.second][coord_to.first].type = figure->GetType();
+		figure->SetPosition(to);
+	}
+	else {
+		cout << "cell don't have a figure or second cell has a figure" << endl;
+	}
 }
 
 void Desk::Draw() {

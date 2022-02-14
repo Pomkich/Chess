@@ -12,7 +12,7 @@ enum class Vertical {
 };
 
 enum class FigureType {
-	Pawn, Horse, Rook, Bishop, Queen, King
+	Pawn, Rook, Horse, Bishop, Queen, King
 };
 
 enum class Color {	// of player

@@ -25,7 +25,7 @@ public:
 	}
 
 	friend bool operator<(const Coordinate& c1, const Coordinate& c2) {
-		// can do with a coefficient showing the importance of the horizontal, in this case the square is taken as the coefficient
-		return (((int)c1.hor * (int)c1.hor + (int)c1.ver) < ((int)c2.hor * (int)c2.hor + (int)c2.ver));
+		// can do with a coefficient showing the importance of the horizontal, in this case the ten is taken as the coefficient
+		return (((int)c1.hor * 10 + (int)c1.ver) < ((int)c2.hor * 10 + (int)c2.ver));
 	}	// need's to be optimized ofc
 };
