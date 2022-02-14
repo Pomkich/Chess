@@ -23,9 +23,9 @@ private:
 
 public:
 	Desk();
-	void CalculateAttackedCells(Color col);
+	void CalculateAttackedCells();
 	set<Coordinate> GetAttackedCells(Color col);
 	void PlaceFigure(FigureType type, Color color, Coordinate pos);
-	unique_ptr<Figure> GetFigure(const Coordinate figure_pos);
+	shared_ptr<Figure> GetFigure(const Coordinate figure_pos);
 	void Draw();
 };

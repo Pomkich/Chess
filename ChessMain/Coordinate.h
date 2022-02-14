@@ -23,4 +23,9 @@ public:
 	friend std::ostream& operator<<(std::ostream& os, const Coordinate& coord) {
 		return os << HorizontalChar[coord.hor] << ":" << static_cast<int>(coord.ver) + 1 << std::endl;
 	}
+
+	friend bool operator<(const Coordinate& c1, const Coordinate& c2) {
+		// can do with a coefficient showing the importance of the horizontal, in this case the square is taken as the coefficient
+		return (((int)c1.hor * (int)c1.hor + (int)c1.ver) < ((int)c2.hor * (int)c2.hor + (int)c2.ver));
+	}	// need's to be optimized ofc
 };
