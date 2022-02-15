@@ -98,6 +98,15 @@ void Desk::PlaceFigure(FigureType type, Color color, Coordinate pos) {
 	field[ver][hor].color = color;
 }
 
+void Desk::DeleteFigure(const Coordinate figure_pos) {
+	auto figure = GetFigure(figure_pos);
+	if (figure != nullptr) {
+		figures[(int)figure->GetColor()].remove(figure);	// remove figure from list
+		field[(int)figure_pos.ver][(int)figure_pos.hor].has_figure = false;	// mark cell as empty
+	}
+	else cout << "cell don't have a figure in Desk::DeleteFigure" << endl;
+}
+
 shared_ptr<Figure> Desk::GetFigure(const Coordinate figure_pos) {
 	list<shared_ptr<Figure>> all_figures = figures[0];
 	all_figures.insert(all_figures.end(), figures[1].begin(), figures[1].end());
@@ -110,7 +119,7 @@ shared_ptr<Figure> Desk::GetFigure(const Coordinate figure_pos) {
 	}
 	return *figure;
 }
-// must delete figures (?) no
+
 void Desk::MoveFigure(Coordinate from, Coordinate to) {
 	shared_ptr<Figure> figure = GetFigure(from);
 	shared_ptr<Figure> side_figure = GetFigure(to);
