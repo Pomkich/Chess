@@ -19,6 +19,10 @@ enum class Color {	// of player
 	White, Black
 };
 
+enum class Flank {
+	Queens, Kings
+};
+
 static std::map<Horizontal, char> HorizontalChar{
 	{Horizontal::A, 'A'},
 	{Horizontal::B, 'B'},

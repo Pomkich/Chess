@@ -144,6 +144,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bishop.h" />
+    <ClInclude Include="CastlingCommand.h" />
+    <ClInclude Include="Command.h" />
+    <ClInclude Include="MoveCommand.h" />
     <ClInclude Include="Rook.h" />
     <ClInclude Include="Cell.h" />
     <ClInclude Include="Constants.h" />

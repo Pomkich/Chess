@@ -19,6 +19,9 @@
     <Filter Include="Файлы заголовков\Figures">
       <UniqueIdentifier>{a4efd777-abf5-4389-8d1e-f72e60bf3ec1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы заголовков\Commands">
+      <UniqueIdentifier>{a58ec14b-7f52-42a0-9055-55fbb2f33df4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ChessMain.cpp">
@@ -61,6 +64,15 @@
     </ClInclude>
     <ClInclude Include="Bishop.h">
       <Filter>Файлы заголовков\Figures</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Файлы заголовков\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveCommand.h">
+      <Filter>Файлы заголовков\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="CastlingCommand.h">
+      <Filter>Файлы заголовков\Commands</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
