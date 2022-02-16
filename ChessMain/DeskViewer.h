@@ -8,7 +8,8 @@ using namespace std;
 
 // this class implements the rules of chess
 class DeskViewer {
-private: shared_ptr<Desk> virtual_desk;	// this is a board for checking the ability to execute commands
+private: 
+	shared_ptr<Desk> virtual_desk;	// this is a board for checking the ability to execute commands
 
 public:
 	// maybe should take command with pointer
