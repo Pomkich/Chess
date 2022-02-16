@@ -74,5 +74,8 @@
     <ClInclude Include="CastlingCommand.h">
       <Filter>Файлы заголовков\Commands</Filter>
     </ClInclude>
+    <ClInclude Include="DeskViewer.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

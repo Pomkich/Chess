@@ -15,6 +15,8 @@
 
 using namespace std;
 
+
+// this class implements primitive operations with the desk
 class Desk {
 private:
 	array<array<Cell, field_size>, field_size> field;	// cells of game field
@@ -31,8 +33,6 @@ public:
 
 	void CalculateAttackedCells();
 	set<Coordinate> GetAttackedCells(Color col);
-
-	//bool CheckCommand();
 
 	void Draw();
 };

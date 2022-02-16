@@ -139,22 +139,6 @@ void Desk::MoveFigure(Coordinate from, Coordinate to) {
 	}
 }
 
-// arguments: Command command, Color color
-//bool Desk::CheckCommand() {
-	/* pveudo code
-	if (command->Execute(this) != Command::BadCommand) {
-		if (!KingUnderAttack(color)) { 
-			return true;
-		}
-		else {
-			command->Cansel(this);
-			return false;
-		}
-	}
-	
-	*/
-//}
-
 void Desk::Draw() {
 	list<shared_ptr<Figure>> all_figures = figures[0];
 	all_figures.insert(all_figures.end(), figures[1].begin(), figures[1].end());
