@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CastlingCommand.cpp" />
     <ClCompile Include="ChessMain.cpp" />
     <ClCompile Include="Desk.cpp" />
   </ItemGroup>

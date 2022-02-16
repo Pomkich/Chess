@@ -22,6 +22,9 @@
     <Filter Include="Файлы заголовков\Commands">
       <UniqueIdentifier>{a58ec14b-7f52-42a0-9055-55fbb2f33df4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\Commands">
+      <UniqueIdentifier>{f26fc1c7-a6f0-4d18-b46d-c72adebbe2c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ChessMain.cpp">
@@ -29,6 +32,9 @@
     </ClCompile>
     <ClCompile Include="Desk.cpp">
       <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="CastlingCommand.cpp">
+      <Filter>Исходные файлы\Commands</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

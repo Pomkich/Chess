@@ -39,6 +39,7 @@ public:
 			desk->DeleteFigure(to);
 		}
 		desk->MoveFigure(from, to);
+
 		if (!figure->IsWalked()) {
 			figure->SetWalked(true);
 		}

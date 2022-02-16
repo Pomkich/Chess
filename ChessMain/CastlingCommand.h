@@ -9,6 +9,9 @@ private:
 public:
 	CastlingCommand(Flank c_flank, Color c_col) : flank(c_flank) { color = c_col; };
 
-	virtual bool Execute(std::shared_ptr<Desk> desk) override {};
+	virtual bool Execute(std::shared_ptr<Desk> desk) override;
 	virtual void Cansel(std::shared_ptr<Desk> desk) override {};
+	
+	tuple<shared_ptr<Figure>, shared_ptr<Figure>, list<shared_ptr<Figure>>> TryGetFigures(std::shared_ptr<Desk> desk);
+	bool CellsIsAttacked(std::shared_ptr<Desk> desk);
 };

@@ -24,6 +24,10 @@ public:
 		return os << HorizontalChar[coord.hor] << ":" << static_cast<int>(coord.ver) + 1 << std::endl;
 	}
 
+	friend bool operator==(const Coordinate& c1, const Coordinate& c2) {
+		return (c1.hor == c2.hor && c1.ver == c2.ver) ? true : false;
+	}
+
 	friend bool operator<(const Coordinate& c1, const Coordinate& c2) {
 		// can do with a coefficient showing the importance of the horizontal, in this case the ten is taken as the coefficient
 		return (((int)c1.hor * 10 + (int)c1.ver) < ((int)c2.hor * 10 + (int)c2.ver));
