@@ -8,6 +8,7 @@ using namespace std;
 
 class Figure {
 protected:
+	bool walked;
 	Color color;
 	FigureType type;	// used for the convenience of rendering
 	Coordinate current_pos;	// position of figure on board
@@ -25,4 +26,11 @@ public:
 	Color GetColor() { return color; }
 
 	FigureType GetType() { return type; }
+
+	void SetWalked(bool st) { walked = st; }
+	bool IsWalked() { return walked; }
+
+	/*~Figure() {
+		cout << "destructor called" << endl;
+	}*/
 };

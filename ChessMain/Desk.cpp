@@ -103,14 +103,13 @@ void Desk::DeleteFigure(Coordinate figure_pos) {
 		pair<int, int> coord = figure_pos.ToInt();
 		figures[(int)figure->GetColor()].remove(figure);	// remove figure from list
 		field[coord.second][coord.first].has_figure = false;	// mark cell as empty
-		field[coord.second][coord.first].figure_ptr.reset();	// delete smart pointer
+		field[coord.second][coord.first].figure_ptr.reset();	// reset smart pointer
 	}
 	else cout << "cell don't have a figure in Desk::DeleteFigure" << endl;
 }
 
 shared_ptr<Figure> Desk::GetFigure(Coordinate figure_pos) {
 	pair<int, int> coord = figure_pos.ToInt();
-
 	auto figure = field[coord.second][coord.first].figure_ptr;
 	return figure;
 }

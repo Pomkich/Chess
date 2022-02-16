@@ -36,10 +36,12 @@ public:
 		auto sec_figure = desk->GetFigure(to);
 		// if cell has a figure and this is enemy figure
 		if (sec_figure != nullptr && sec_figure->GetColor() != color) {
-			desk->DeleteFigure(to);	// maybe should overload this method with shared_ptr<Figure>
+			desk->DeleteFigure(to);
 		}
-		desk->MoveFigure(from, to);	// maybe should overload this method too
-		
+		desk->MoveFigure(from, to);
+		if (!figure->IsWalked()) {
+			figure->SetWalked(true);
+		}
 	};
 
 	virtual void Cansel(std::shared_ptr<Desk> desk) override {};

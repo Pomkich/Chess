@@ -2,9 +2,6 @@
 #include "Figure.h"
 
 class Pawn : public Figure {
-private:
-	bool walked;
-
 public:
 	Pawn() {
 		type = FigureType::Pawn;

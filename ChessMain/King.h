@@ -2,9 +2,6 @@
 #include "Figure.h"
 
 class King : public Figure {
-private:
-	bool walked;	// need for castling
-
 public:
 	King() {
 		walked = false;
