@@ -26,10 +26,10 @@ private:
 public:
 	Desk();
 	void PlaceFigure(FigureType type, Color color, Coordinate pos);
-	void DeleteFigure(const Coordinate figure_pos);
+	void DeleteFigure(Coordinate figure_pos);
 	void MoveFigure(Coordinate from, Coordinate to);
 	void PlaceDefaultFigures();
-	shared_ptr<Figure> GetFigure(const Coordinate figure_pos);
+	shared_ptr<Figure> GetFigure(Coordinate figure_pos);
 
 	void CalculateAttackedCells();
 	set<Coordinate> GetAttackedCells(Color col);

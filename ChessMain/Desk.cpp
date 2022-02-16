@@ -97,26 +97,22 @@ void Desk::PlaceFigure(FigureType type, Color color, Coordinate pos) {
 	field[ver][hor].figure_ptr = ptr_fig;
 }
 
-void Desk::DeleteFigure(const Coordinate figure_pos) {
+void Desk::DeleteFigure(Coordinate figure_pos) {
 	auto figure = GetFigure(figure_pos);
 	if (figure != nullptr) {
+		pair<int, int> coord = figure_pos.ToInt();
 		figures[(int)figure->GetColor()].remove(figure);	// remove figure from list
-		field[(int)figure_pos.ver][(int)figure_pos.hor].has_figure = false;	// mark cell as empty
+		field[coord.second][coord.first].has_figure = false;	// mark cell as empty
+		field[coord.second][coord.first].figure_ptr.reset();	// delete smart pointer
 	}
 	else cout << "cell don't have a figure in Desk::DeleteFigure" << endl;
 }
 
-shared_ptr<Figure> Desk::GetFigure(const Coordinate figure_pos) {
-	list<shared_ptr<Figure>> all_figures = figures[0];
-	all_figures.insert(all_figures.end(), figures[1].begin(), figures[1].end());
+shared_ptr<Figure> Desk::GetFigure(Coordinate figure_pos) {
+	pair<int, int> coord = figure_pos.ToInt();
 
-	auto figure = find_if(all_figures.begin(), all_figures.end(),
-		[figure_pos](shared_ptr<Figure> fig) { return Coordinate::Compare(figure_pos, fig->GetPosition()); });
-
-	if (figure == all_figures.end()) {
-		return shared_ptr<Figure>();	// nullptr
-	}
-	return *figure;
+	auto figure = field[coord.second][coord.first].figure_ptr;
+	return figure;
 }
 
 void Desk::MoveFigure(Coordinate from, Coordinate to) {
