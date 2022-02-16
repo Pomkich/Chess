@@ -94,8 +94,7 @@ void Desk::PlaceFigure(FigureType type, Color color, Coordinate pos) {
 	ptr_fig->SetPosition(pos);
 
 	field[ver][hor].has_figure = true;
-	field[ver][hor].type = type;
-	field[ver][hor].color = color;
+	field[ver][hor].figure_ptr = ptr_fig;
 }
 
 void Desk::DeleteFigure(const Coordinate figure_pos) {
@@ -129,9 +128,9 @@ void Desk::MoveFigure(Coordinate from, Coordinate to) {
 		pair<int, int> coord_to = to.ToInt();
 
 		field[coord_from.second][coord_from.first].has_figure = false;
+		field[coord_from.second][coord_from.first].figure_ptr.reset();
 		field[coord_to.second][coord_to.first].has_figure = true;
-		field[coord_to.second][coord_to.first].color = figure->GetColor();
-		field[coord_to.second][coord_to.first].type = figure->GetType();
+		field[coord_to.second][coord_to.first].figure_ptr = figure;
 		figure->SetPosition(to);
 	}
 	else {
@@ -149,7 +148,7 @@ void Desk::Draw() {
 		cout << y + 1 << "  ";
 		for (int x = 0; x < 8; x++) {
 			if (field[y][x].has_figure) {
-				cout << "| " << (int)field[y][x].color << (int)field[y][x].type << " ";
+				cout << "| " << (int)field[y][x].figure_ptr->GetColor() << (int)field[y][x].figure_ptr->GetType() << " ";
 			}
 			else {
 				cout << "|    ";

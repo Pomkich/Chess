@@ -33,7 +33,7 @@ public:
 						move_cells.push_back(Coordinate((Horizontal)coord.first, (Vertical)coord.second));
 					}
 					else {
-						if (desk[coord.second][coord.first].color != color) {
+						if (desk[coord.second][coord.first].figure_ptr->GetColor() != color) {
 							move_cells.push_back(Coordinate((Horizontal)coord.first, (Vertical)coord.second));
 						}
 						break;

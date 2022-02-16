@@ -29,7 +29,7 @@ public:
 			coord.second += move_vec.second;
 			if (Coordinate::InBounds(coord.first, coord.second)) {
 				if (!desk[coord.second][coord.first].has_figure ||	// if has no figure or has an enemy figure
-					(desk[coord.second][coord.first].has_figure && desk[coord.second][coord.first].color != color)) {
+					(desk[coord.second][coord.first].has_figure && desk[coord.second][coord.first].figure_ptr->GetColor() != color)) {
 					move_cells.push_back(Coordinate((Horizontal)coord.first, (Vertical)coord.second));
 				}
 			}
