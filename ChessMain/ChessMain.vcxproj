@@ -142,6 +142,7 @@
     <ClCompile Include="CastlingCommand.cpp" />
     <ClCompile Include="ChessMain.cpp" />
     <ClCompile Include="Desk.cpp" />
+    <ClCompile Include="MoveCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bishop.h" />

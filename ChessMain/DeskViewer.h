@@ -15,7 +15,7 @@ public:
 	// maybe should take command with pointer
 	// the method of checking the command, if it is successful, then the command is executed on a real desk
 	bool CheckCommand(Command command, Color color) {
-		/* pveudo code
+		/* pseudo code
 	if (command->Execute(this) != Command::BadCommand) {
 		if (!KingUnderAttack(color)) {
 			return true;
@@ -34,7 +34,10 @@ public:
 	}
 	// search for checkmate
 	bool KingCheckmate(Color color) {
-
+		// if it Horse -> check can kill him or king can move
+		//					no -> return true
+		//					yes -> returl false
+		// if it not Horse -> 
 	};
 	// search for pat
 	bool KingPat(Color color) {

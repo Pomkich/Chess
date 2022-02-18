@@ -18,6 +18,7 @@ protected:
 public:
 	virtual void CalculateAttackedCells(const array<array<Cell, field_size>, field_size> desk) = 0;	// defines move cells for this figure; takes all figures on desk
 	list<Coordinate> GetMoveCells() { return move_cells; };
+	void RemoveMoveCell(Coordinate coord) { move_cells.remove(coord); };
 
 	void SetPosition(Coordinate pos) { current_pos = pos; }
 	Coordinate GetPosition() { return current_pos; }

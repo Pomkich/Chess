@@ -36,6 +36,9 @@
     <ClCompile Include="CastlingCommand.cpp">
       <Filter>Исходные файлы\Commands</Filter>
     </ClCompile>
+    <ClCompile Include="MoveCommand.cpp">
+      <Filter>Исходные файлы\Commands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants.h">

@@ -17,14 +17,14 @@ using namespace std;
 int main()
 {
     Desk ds;
-    ds.PlaceDefaultFigures();
-
-    ds.MoveFigure(Coordinate(Horizontal::A, Vertical::Two), Coordinate(Horizontal::A, Vertical::Four));
-    ds.MoveFigure(Coordinate(Horizontal::C, Vertical::Two), Coordinate(Horizontal::C, Vertical::Eigth));
-    ds.MoveFigure(Coordinate(Horizontal::B, Vertical::Two), Coordinate(Horizontal::C, Vertical::Four));
+    
+    ds.PlaceFigure(FigureType::King, Color::White, Coordinate(Horizontal::D, Vertical::Four));
+    ds.PlaceFigure(FigureType::King, Color::Black, Coordinate(Horizontal::D, Vertical::Two));
+    //ds.PlaceFigure(FigureType::Rook, Color::Black, Coordinate(Horizontal::E, Vertical::One));
+    //ds.PlaceFigure(FigureType::Rook, Color::Black, Coordinate(Horizontal::C, Vertical::One));
 
     ds.CalculateAttackedCells();
-    auto cells = ds.GetAttackedCells(Color::White);
+    auto cells = ds.GetAttackedCells(Color::Black);
 
     for (auto cell : cells) {
         cout << cell;
