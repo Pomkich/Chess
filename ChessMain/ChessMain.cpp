@@ -19,7 +19,7 @@ int main()
     Desk ds;
     
     ds.PlaceFigure(FigureType::King, Color::White, Coordinate(Horizontal::D, Vertical::Four));
-    ds.PlaceFigure(FigureType::King, Color::Black, Coordinate(Horizontal::D, Vertical::Two));
+    ds.PlaceFigure(FigureType::King, Color::Black, Coordinate(Horizontal::E, Vertical::Two));
     //ds.PlaceFigure(FigureType::Rook, Color::Black, Coordinate(Horizontal::E, Vertical::One));
     //ds.PlaceFigure(FigureType::Rook, Color::Black, Coordinate(Horizontal::C, Vertical::One));
 

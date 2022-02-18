@@ -91,6 +91,19 @@ set<Coordinate> Desk::GetAttackedCells(Color col) {
 	return attacked_cells[(int)col];
 }
 
+shared_ptr<Figure> Desk::GetKing(Color color) {
+	for (auto figure : figures[(int)color]) {
+		if (figure->GetType() == FigureType::King) {
+			return figure;
+		}
+	}
+	return shared_ptr<Figure>();
+}
+
+list<shared_ptr<Figure>> Desk::GetFigures(Color color) {
+	return figures[(int)color];
+}
+
 void Desk::PlaceFigure(FigureType type, Color color, Coordinate pos) {
 	int hor = (int)pos.hor, ver = (int)pos.ver;
 	if (!Coordinate::InBounds(hor, ver)) {

@@ -10,38 +10,11 @@ using namespace std;
 class DeskViewer {
 private: 
 	shared_ptr<Desk> virtual_desk;	// this is a board for checking the ability to execute commands
+	list<Coordinate> CalculateAttackVector(Coordinate attack_figure_pos, Coordinate king_pos);
 
 public:
-	// maybe should take command with pointer
-	// the method of checking the command, if it is successful, then the command is executed on a real desk
-	bool CheckCommand(Command command, Color color) {
-		/* pseudo code
-	if (command->Execute(this) != Command::BadCommand) {
-		if (!KingUnderAttack(color)) {
-			return true;
-		}
-		else {
-			command->Cansel(this);
-			return false;
-		}
-	}
-
-	*/
-	}
-	// search for the check
-	bool KingUnderAttack(Color color) {
-
-	}
-	// search for checkmate
-	bool KingCheckmate(Color color) {
-		// if it Horse -> check can kill him or king can move
-		//					no -> return true
-		//					yes -> returl false
-		// if it not Horse -> 
-	};
-	// search for pat
-	bool KingPat(Color color) {
-
-	};
-
+	bool CheckCommand(shared_ptr<Command> command, Color color);
+	bool KingUnderAttack(Color color);
+	bool KingCheckmate(Color color, shared_ptr<Figure> attacked_figure);
+	bool KingPat(Color color);
 };

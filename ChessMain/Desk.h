@@ -30,6 +30,8 @@ public:
 	void MoveFigure(Coordinate from, Coordinate to);
 	void PlaceDefaultFigures();
 	shared_ptr<Figure> GetFigure(Coordinate figure_pos);
+	shared_ptr<Figure> GetKing(Color color);
+	list<shared_ptr<Figure>> GetFigures(Color color);
 
 	void CalculateAttackedCells();
 	set<Coordinate> GetAttackedCells(Color col);

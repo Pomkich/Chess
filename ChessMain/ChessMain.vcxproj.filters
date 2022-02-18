@@ -39,6 +39,9 @@
     <ClCompile Include="MoveCommand.cpp">
       <Filter>Исходные файлы\Commands</Filter>
     </ClCompile>
+    <ClCompile Include="DeskViewer.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants.h">
