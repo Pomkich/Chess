@@ -1,5 +1,4 @@
 #include "MoveCommandTest.h"
-#include <cassert>
 
 MoveCommandTest::MoveCommandTest() {
 	desk = make_shared<Desk>();
@@ -68,6 +67,7 @@ void MoveCommandTest::MoveInOccupiedCellTest() {
 
 	desk->Draw(); cout << endl;
 }
+
 void MoveCommandTest::MoveEnemyFigureTest() {
 	RenewDesk();
 	cout << "//////////////////////////////////////////////////" << endl;

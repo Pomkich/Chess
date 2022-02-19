@@ -3,13 +3,14 @@
 
 #include <iostream>
 #include "MoveCommandTest.h"
+#include "CastlingCommandTest.h"
 
 using namespace std;
 
 int main()
 {
     MoveCommandTest test1;
-
+    CastlingCommandTest test2;
 
     return 0;
 }

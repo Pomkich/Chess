@@ -82,7 +82,6 @@ bool CastlingCommand::Cansel(shared_ptr<Desk> desk) {
 // trying to find attacked cell depending on flank and color
 bool CastlingCommand::CellsIsAttacked(std::shared_ptr<Desk> desk) {
 	set<Coordinate> enemy_attacked_cells;
-	list<Coordinate> found_cells;
 
 	switch (color) {
 	case Color::White:
@@ -92,26 +91,26 @@ bool CastlingCommand::CellsIsAttacked(std::shared_ptr<Desk> desk) {
 		case Flank::Queen:
 			if (find(enemy_attacked_cells.begin(), enemy_attacked_cells.end(),
 				Coordinate(Horizontal::B, Vertical::One)) != enemy_attacked_cells.end()) {
-				found_cells.push_back(Coordinate(Horizontal::B, Vertical::One));
+				return true;
 			}
 			if (find(enemy_attacked_cells.begin(), enemy_attacked_cells.end(),
 				Coordinate(Horizontal::C, Vertical::One)) != enemy_attacked_cells.end()) {
-				found_cells.push_back(Coordinate(Horizontal::B, Vertical::One));
+				return true;
 			}
 			if (find(enemy_attacked_cells.begin(), enemy_attacked_cells.end(),
 				Coordinate(Horizontal::D, Vertical::One)) != enemy_attacked_cells.end()) {
-				found_cells.push_back(Coordinate(Horizontal::B, Vertical::One));
+				return true;
 			}
 			break;
 
 		case Flank::King:
 			if (find(enemy_attacked_cells.begin(), enemy_attacked_cells.end(),
 				Coordinate(Horizontal::F, Vertical::One)) != enemy_attacked_cells.end()) {
-				found_cells.push_back(Coordinate(Horizontal::B, Vertical::One));
+				return true;
 			}
 			if (find(enemy_attacked_cells.begin(), enemy_attacked_cells.end(),
 				Coordinate(Horizontal::G, Vertical::One)) != enemy_attacked_cells.end()) {
-				found_cells.push_back(Coordinate(Horizontal::B, Vertical::One));
+				return true;
 			}
 			break;
 		}
@@ -124,34 +123,34 @@ bool CastlingCommand::CellsIsAttacked(std::shared_ptr<Desk> desk) {
 		switch (flank) {
 		case Flank::Queen:
 			if (find(enemy_attacked_cells.begin(), enemy_attacked_cells.end(),
-				Coordinate(Horizontal::B, Vertical::One)) != enemy_attacked_cells.end()) {
-				found_cells.push_back(Coordinate(Horizontal::B, Vertical::Eigth));
+				Coordinate(Horizontal::B, Vertical::Eigth)) != enemy_attacked_cells.end()) {
+				return true;
 			}
 			if (find(enemy_attacked_cells.begin(), enemy_attacked_cells.end(),
-				Coordinate(Horizontal::C, Vertical::One)) != enemy_attacked_cells.end()) {
-				found_cells.push_back(Coordinate(Horizontal::B, Vertical::Eigth));
+				Coordinate(Horizontal::C, Vertical::Eigth)) != enemy_attacked_cells.end()) {
+				return true;
 			}
 			if (find(enemy_attacked_cells.begin(), enemy_attacked_cells.end(),
-				Coordinate(Horizontal::D, Vertical::One)) != enemy_attacked_cells.end()) {
-				found_cells.push_back(Coordinate(Horizontal::B, Vertical::Eigth));
+				Coordinate(Horizontal::D, Vertical::Eigth)) != enemy_attacked_cells.end()) {
+				return true;
 			}
 			break;
 
 		case Flank::King:
 			if (find(enemy_attacked_cells.begin(), enemy_attacked_cells.end(),
-				Coordinate(Horizontal::F, Vertical::One)) != enemy_attacked_cells.end()) {
-				found_cells.push_back(Coordinate(Horizontal::B, Vertical::Eigth));
+				Coordinate(Horizontal::F, Vertical::Eigth)) != enemy_attacked_cells.end()) {
+				return true;
 			}
 			if (find(enemy_attacked_cells.begin(), enemy_attacked_cells.end(),
-				Coordinate(Horizontal::G, Vertical::One)) != enemy_attacked_cells.end()) {
-				found_cells.push_back(Coordinate(Horizontal::B, Vertical::Eigth));
+				Coordinate(Horizontal::G, Vertical::Eigth)) != enemy_attacked_cells.end()) {
+				return true;
 			}
 			break;
 		}
 		break;
 	}
 	
-	return !found_cells.empty();
+	return false;
 }
 
 // stupid, but understandable

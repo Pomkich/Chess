@@ -1,5 +1,6 @@
 #pragma once
 #include "MoveCommand.h"
+#include <cassert>
 
 class MoveCommandTest {
 private:

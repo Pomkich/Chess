@@ -51,6 +51,9 @@
     <ClCompile Include="MoveCommandTest.cpp">
       <Filter>Исходные файлы\Tests</Filter>
     </ClCompile>
+    <ClCompile Include="CastlingCommandTest.cpp">
+      <Filter>Исходные файлы\Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants.h">
@@ -99,6 +102,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="MoveCommandTest.h">
+      <Filter>Файлы заголовков\Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="CastlingCommandTest.h">
       <Filter>Файлы заголовков\Tests</Filter>
     </ClInclude>
   </ItemGroup>

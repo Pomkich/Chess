@@ -3,6 +3,8 @@
 #include "Constants.h"
 
 class CastlingCommand : public Command {
+	friend class CastlingCommandTest;
+
 private:
 	Flank flank;	// Queen's or King's flank
 

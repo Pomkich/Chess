@@ -45,6 +45,9 @@ void Desk::DeleteAllFigures() {
 }
 
 void Desk::CalculateAttackedCells() {
+	attacked_cells[0].clear();
+	attacked_cells[1].clear();
+
 	shared_ptr<Figure> white_king;
 	shared_ptr<Figure> 	black_king;
 	// calculating white cells
