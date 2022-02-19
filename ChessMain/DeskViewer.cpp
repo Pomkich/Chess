@@ -89,13 +89,17 @@ list<Coordinate> DeskViewer::CalculateAttackVector(Coordinate attack_figure_pos,
 	attack_vector.second = king_int.second - attack_figure_int.second;
 	// define moving direction
 	pair<int, int> incrementer;
-	if (attack_vector.first < 0) 
+	if (attack_vector.first < 0)
 		incrementer.first = 1;
-	else incrementer.first = -1;
+	else if (attack_vector.first > 0)
+		incrementer.first = -1;
+	else incrementer.first = 0;
 
 	if (attack_vector.second < 0)
 		incrementer.second = 1;
-	else incrementer.second = -1;
+	else if (attack_vector.second > 0)
+		incrementer.second = -1;
+	else incrementer.second = 0;
 
 	list<Coordinate> cells;
 	// moving to attack figure and mark cells on way to it
