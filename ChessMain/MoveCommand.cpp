@@ -34,6 +34,7 @@ bool MoveCommand::Execute(std::shared_ptr<Desk> desk) {
 	desk->MoveFigure(from, to);
 
 	if (!figure->IsWalked()) {
+		figure_first_move = true;
 		figure->SetWalked(true);
 	}
 
@@ -56,5 +57,9 @@ bool MoveCommand::Cansel(shared_ptr<Desk> desk) {
 			desk->PlaceFigure(deleted_figure_type, Color::White, to);
 		}
 	}
+	if (figure_first_move) {
+		desk->GetFigure(from)->SetWalked(false);
+	}
+
 	return true;
 }

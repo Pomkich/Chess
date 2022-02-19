@@ -9,6 +9,7 @@ private:
 	Coordinate to;
 
 	bool delete_figure;
+	bool figure_first_move;
 	FigureType deleted_figure_type;
 
 public:
@@ -16,6 +17,7 @@ public:
 		color = c_col; 
 		delete_figure = false;
 		executed = false;
+		figure_first_move = false;
 	};
 	
 	virtual bool Execute(std::shared_ptr<Desk> desk) override;

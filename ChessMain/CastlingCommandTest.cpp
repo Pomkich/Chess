@@ -5,10 +5,9 @@ CastlingCommandTest::CastlingCommandTest() {
 	desk = make_shared<Desk>();
 
 	DefaultCastlingTest();
-	CastlingWhenCellsUnderAttackTest();
 	CastlingWithFigureOnWayTest();
+	CastlingWhenCellsUnderAttackTest();
 	CastlingWhenOneOfTheFigureMoved();
-	CanselTest();
 }
 
 void CastlingCommandTest::DefaultCastlingTest() {
@@ -46,19 +45,97 @@ void CastlingCommandTest::DefaultCastlingTest() {
 }
 
 void CastlingCommandTest::CastlingWithFigureOnWayTest() {
+	RenewDesk();
+	cout << "//////////////////////////////////////////////////" << endl;
+	cout << "CastlingCommand test: figure on way of castling test" << endl;
+
+	cout << "king white test" << endl;
+	desk->PlaceFigure(FigureType::Bishop, Color::White, Coordinate(Horizontal::F, Vertical::One));
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
+	shared_ptr<Command> cmd1 = make_shared<CastlingCommand>(Flank::King, Color::White);
+	assert(cmd1->Execute(desk) == false);
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
+
+	RenewDesk();
+	cout << "queen white test" << endl;
+	desk->PlaceFigure(FigureType::Bishop, Color::White, Coordinate(Horizontal::C, Vertical::One));
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
+	shared_ptr<Command> cmd2 = make_shared<CastlingCommand>(Flank::Queen, Color::White);
+	assert(cmd2->Execute(desk) == false);
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
+
+	RenewDesk();
+	cout << "king black test" << endl;
+	desk->PlaceFigure(FigureType::Bishop, Color::Black, Coordinate(Horizontal::F, Vertical::Eigth));
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
+	shared_ptr<Command> cmd3 = make_shared<CastlingCommand>(Flank::King, Color::Black);
+	assert(cmd3->Execute(desk) == false);
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
+
+	RenewDesk();
+	cout << "queen black test" << endl;
+	desk->PlaceFigure(FigureType::Bishop, Color::Black, Coordinate(Horizontal::C, Vertical::Eigth));
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
+	shared_ptr<Command> cmd4 = make_shared<CastlingCommand>(Flank::Queen, Color::Black);
+	assert(cmd4->Execute(desk) == false);
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
 
 }
 
 void CastlingCommandTest::CastlingWhenCellsUnderAttackTest() {
+	RenewDesk();
+	cout << "//////////////////////////////////////////////////" << endl;
+	cout << "CastlingCommand test: cell attacked on way of castling" << endl;
 
+	cout << "king white test" << endl;
+	desk->PlaceFigure(FigureType::Bishop, Color::Black, Coordinate(Horizontal::H, Vertical::Three));
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
+	shared_ptr<Command> cmd1 = make_shared<CastlingCommand>(Flank::King, Color::White);
+	assert(cmd1->Execute(desk) == false);
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
+
+	RenewDesk();
+	cout << "queen white test" << endl;
+	desk->PlaceFigure(FigureType::Bishop, Color::Black, Coordinate(Horizontal::A, Vertical::Three));
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
+	shared_ptr<Command> cmd2 = make_shared<CastlingCommand>(Flank::Queen, Color::White);
+	assert(cmd2->Execute(desk) == false);
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
+
+	RenewDesk();
+	cout << "king black test" << endl;
+	desk->PlaceFigure(FigureType::Bishop, Color::White, Coordinate(Horizontal::H, Vertical::Six));
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
+	shared_ptr<Command> cmd3 = make_shared<CastlingCommand>(Flank::King, Color::Black);
+	assert(cmd3->Execute(desk) == false);
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
+
+	RenewDesk();
+	cout << "queen black test" << endl;
+	desk->PlaceFigure(FigureType::Bishop, Color::White, Coordinate(Horizontal::A, Vertical::Six));
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
+	shared_ptr<Command> cmd4 = make_shared<CastlingCommand>(Flank::Queen, Color::Black);
+	assert(cmd4->Execute(desk) == false);
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
 }
 
 void CastlingCommandTest::CastlingWhenOneOfTheFigureMoved() {
+	RenewDesk();
+	cout << "//////////////////////////////////////////////////" << endl;
+	cout << "CastlingCommand test: one of castling figure moved" << endl;
 
-}
-
-void CastlingCommandTest::CanselTest() {
-
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
+	shared_ptr<Command> cmdm1 = make_shared<MoveCommand>(Coordinate(Horizontal::E, Vertical::One), 
+		Coordinate(Horizontal::E, Vertical::Two), Color::White);
+	shared_ptr<Command> cmdm2 = make_shared<MoveCommand>(Coordinate(Horizontal::E, Vertical::Two), 
+		Coordinate(Horizontal::E, Vertical::One), Color::White);
+	cmdm1->Execute(desk);
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
+	cmdm2->Execute(desk);
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
+	shared_ptr<Command> cmd1 = make_shared<CastlingCommand>(Flank::King, Color::White);
+	assert(cmd1->Execute(desk) == false);
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
 }
 
 void CastlingCommandTest::RenewDesk() {

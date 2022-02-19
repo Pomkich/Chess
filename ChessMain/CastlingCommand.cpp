@@ -63,8 +63,11 @@ bool CastlingCommand::Execute(std::shared_ptr<Desk> desk) {
 	desk->MoveFigure(king_from, king_to);
 	desk->MoveFigure(rook_from, rook_to);
 	king->SetWalked(true);
+	rook->SetWalked(true);
 
 	executed = true;
+
+	return true;
 };
 
 bool CastlingCommand::Cansel(shared_ptr<Desk> desk) {
@@ -75,6 +78,8 @@ bool CastlingCommand::Cansel(shared_ptr<Desk> desk) {
 
 	desk->MoveFigure(king_to, king_from);
 	desk->MoveFigure(rook_to, rook_from);
+	desk->GetFigure(king_from)->SetWalked(false);
+	desk->GetFigure(rook_from)->SetWalked(false);
 
 	return true;
 }

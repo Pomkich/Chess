@@ -1,5 +1,6 @@
 #pragma once
 #include "CastlingCommand.h"
+#include "MoveCommand.h"
 
 class CastlingCommandTest {
 private:
@@ -9,7 +10,6 @@ private:
 	void CastlingWithFigureOnWayTest();
 	void CastlingWhenCellsUnderAttackTest();
 	void CastlingWhenOneOfTheFigureMoved();
-	void CanselTest();
 
 	void RenewDesk();
 
