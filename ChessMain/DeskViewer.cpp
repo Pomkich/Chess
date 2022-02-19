@@ -39,11 +39,11 @@ bool DeskViewer::KingUnderAttack(Color color) {
 }
 
 // search for checkmate
-bool DeskViewer::KingCheckmate(Color color, shared_ptr<Figure> attacked_figure) {
+bool DeskViewer::KingCheckmate(Color color, shared_ptr<Figure> attacking_figure) {
 	// if it Horse or Pawn -> check can kill him or king can move
 	// if it not Horse or Pawn -> check can kill him or king can move or can block attack vector
 
-	if (!KingUnderAttack(color)) return false;
+	if (!KingUnderAttack(color)) return false;	// maybe should erase this string because components that will use this method will check it
 
 	set<Coordinate> attacked_cells = virtual_desk->GetAttackedCells(color);
 	
@@ -52,14 +52,14 @@ bool DeskViewer::KingCheckmate(Color color, shared_ptr<Figure> attacked_figure) 
 	if (!king->GetMoveCells().empty()) return false;
 	// check can kill attacked figure
 	for (auto cell : attacked_cells) {
-		if (cell == attacked_figure->GetPosition()) {
+		if (cell == attacking_figure->GetPosition()) {
 			return false;
 		}
 	}
 	// if it horse or pawn -> lose
-	if (attacked_figure->GetType() != FigureType::Horse &&
-		attacked_figure->GetType() != FigureType::Pawn) {
-		auto cells_on_attack_vector = CalculateAttackVector(attacked_figure->GetPosition(), king->GetPosition());
+	if (attacking_figure->GetType() != FigureType::Horse &&
+		attacking_figure->GetType() != FigureType::Pawn) {
+		auto cells_on_attack_vector = CalculateAttackVector(attacking_figure->GetPosition(), king->GetPosition());
 		// trying to find turn, that can block attack vector;
 		for (auto vec_cell : cells_on_attack_vector) {
 			for (auto attacked_cell : attacked_cells) {

@@ -5,6 +5,7 @@
 class Command {
 protected:
 	Color color;
+	bool executed;
 
 public:
 	virtual bool Execute(std::shared_ptr<Desk> desk) = 0;

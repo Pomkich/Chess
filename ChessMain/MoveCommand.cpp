@@ -27,10 +27,31 @@ bool MoveCommand::Execute(std::shared_ptr<Desk> desk) {
 	// if cell has a figure and this is enemy figure
 	if (sec_figure != nullptr && sec_figure->GetColor() != color) {
 		desk->DeleteFigure(to);
+		delete_figure = true;
+		deleted_figure_type = sec_figure->GetType();
 	}
 	desk->MoveFigure(from, to);
 
 	if (!figure->IsWalked()) {
 		figure->SetWalked(true);
+	}
+
+	executed = true;
+}
+
+void MoveCommand::Cansel(shared_ptr<Desk> desk) {
+	if (!executed) {
+		cout << "can't cansel not executed command in MoveCommand::Cansel" << endl;
+		return;
+	}
+
+	desk->MoveFigure(to, from);
+	if (delete_figure) {
+		if (color == Color::White) {
+			desk->PlaceFigure(deleted_figure_type, Color::Black, to);
+		}
+		else {
+			desk->PlaceFigure(deleted_figure_type, Color::White, to);
+		}
 	}
 }

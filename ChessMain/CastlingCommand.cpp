@@ -34,13 +34,13 @@ bool CastlingCommand::Execute(std::shared_ptr<Desk> desk) {
 
 		switch (flank) {
 		case Flank::Queen:
-			desk->MoveFigure(Coordinate(Horizontal::E, Vertical::One), Coordinate(Horizontal::C, Vertical::One));
-			desk->MoveFigure(Coordinate(Horizontal::A, Vertical::One), Coordinate(Horizontal::D, Vertical::One));
+			king_from = Coordinate(Horizontal::E, Vertical::One); king_to = Coordinate(Horizontal::C, Vertical::One);
+			rook_from = Coordinate(Horizontal::A, Vertical::One); rook_to = Coordinate(Horizontal::D, Vertical::One);
 			break;
 
 		case Flank::King:
-			desk->MoveFigure(Coordinate(Horizontal::E, Vertical::One), Coordinate(Horizontal::G, Vertical::One));
-			desk->MoveFigure(Coordinate(Horizontal::H, Vertical::One), Coordinate(Horizontal::F, Vertical::One));
+			king_from = Coordinate(Horizontal::E, Vertical::One); king_to = Coordinate(Horizontal::G, Vertical::One);
+			rook_from = Coordinate(Horizontal::H, Vertical::One); rook_to = Coordinate(Horizontal::F, Vertical::One);
 			break;
 		}
 		break;
@@ -48,18 +48,34 @@ bool CastlingCommand::Execute(std::shared_ptr<Desk> desk) {
 	case Color::Black:
 		switch (flank) {
 		case Flank::Queen:
-			desk->MoveFigure(Coordinate(Horizontal::E, Vertical::One), Coordinate(Horizontal::C, Vertical::Eigth));
-			desk->MoveFigure(Coordinate(Horizontal::A, Vertical::One), Coordinate(Horizontal::D, Vertical::Eigth));
+			king_from = Coordinate(Horizontal::E, Vertical::Eigth); king_to = Coordinate(Horizontal::C, Vertical::Eigth);
+			rook_from = Coordinate(Horizontal::A, Vertical::Eigth); rook_to = Coordinate(Horizontal::D, Vertical::Eigth);
 			break;
 
 		case Flank::King:
-			desk->MoveFigure(Coordinate(Horizontal::E, Vertical::One), Coordinate(Horizontal::G, Vertical::Eigth));
-			desk->MoveFigure(Coordinate(Horizontal::H, Vertical::One), Coordinate(Horizontal::F, Vertical::Eigth));
+			king_from = Coordinate(Horizontal::E, Vertical::Eigth); king_to = Coordinate(Horizontal::G, Vertical::Eigth);
+			rook_from = Coordinate(Horizontal::H, Vertical::Eigth); rook_to = Coordinate(Horizontal::F, Vertical::Eigth);
 			break;
 		}
 		break;
 	}
+
+	desk->MoveFigure(king_from, king_to);
+	desk->MoveFigure(rook_from, rook_to);
+	king->SetWalked(true);
+
+	executed = true;
 };
+
+void CastlingCommand::Cansel(shared_ptr<Desk> desk) {
+	if (!executed) {
+		cout << "can't cansel not executed command in CastlingCommand::Cansel" << endl;
+		return;
+	}
+
+	desk->MoveFigure(king_to, king_from);
+	desk->MoveFigure(rook_to, rook_from);
+}
 
 // trying to find attacked cell depending on flank and color
 bool CastlingCommand::CellsIsAttacked(std::shared_ptr<Desk> desk) {
