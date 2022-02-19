@@ -10,4 +10,5 @@ protected:
 public:
 	virtual bool Execute(std::shared_ptr<Desk> desk) = 0;
 	virtual void Cansel(std::shared_ptr<Desk> desk) = 0;
+	Color GetColor() { return color; }
 };

@@ -13,7 +13,9 @@ private:
 	list<Coordinate> CalculateAttackVector(Coordinate attack_figure_pos, Coordinate king_pos);
 
 public:
-	bool CheckCommand(shared_ptr<Command> command, Color color);
+	DeskViewer();
+	void SetDesk(shared_ptr<Desk> n_desk);
+	bool CheckCommand(shared_ptr<Command> command);
 	bool KingUnderAttack(Color color);
 	bool KingCheckmate(Color color, shared_ptr<Figure> attacked_figure);
 	bool KingPat(Color color);

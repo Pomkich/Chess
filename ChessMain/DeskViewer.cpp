@@ -1,18 +1,25 @@
 #include "DeskViewer.h"
 
-// the method of checking the command, if it is successful, then the command is executed on a real desk
-bool DeskViewer::CheckCommand(shared_ptr<Command> command, Color color) {
-	/* pseudo code
-if (command->Execute(this) != Command::BadCommand) {
-	if (!KingUnderAttack(color)) {
-		return true;
-	}
-	else {
-		command->Cansel(this);
-		return false;
-	}
+DeskViewer::DeskViewer() {
+
 }
-*/	return false;
+
+void DeskViewer::SetDesk(shared_ptr<Desk> n_desk) {
+	virtual_desk = n_desk;
+}
+
+// the method of checking the command, if it is successful, then the command is executed on a real desk
+bool DeskViewer::CheckCommand(shared_ptr<Command> command) {
+	if (command->Execute(virtual_desk)) {
+		if (!KingUnderAttack(command->GetColor())) {
+			return true;
+		}
+		else {
+			command->Cansel(virtual_desk);
+			return false;
+		}
+	}
+	return false;
 }
 
 // search for the check
