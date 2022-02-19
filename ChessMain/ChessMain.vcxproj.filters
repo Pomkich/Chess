@@ -25,6 +25,12 @@
     <Filter Include="Исходные файлы\Commands">
       <UniqueIdentifier>{f26fc1c7-a6f0-4d18-b46d-c72adebbe2c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы заголовков\Tests">
+      <UniqueIdentifier>{fa95e845-d340-4451-9c8d-fb96e86edb88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Tests">
+      <UniqueIdentifier>{3f8a8d5b-2b64-4981-bef0-431cdd318311}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ChessMain.cpp">
@@ -41,6 +47,9 @@
     </ClCompile>
     <ClCompile Include="DeskViewer.cpp">
       <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveCommandTest.cpp">
+      <Filter>Исходные файлы\Tests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="DeskViewer.h">
       <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveCommandTest.h">
+      <Filter>Файлы заголовков\Tests</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

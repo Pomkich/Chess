@@ -29,6 +29,7 @@ public:
 	void DeleteFigure(Coordinate figure_pos);
 	void MoveFigure(Coordinate from, Coordinate to);
 	void PlaceDefaultFigures();
+	void DeleteAllFigures();
 	shared_ptr<Figure> GetFigure(Coordinate figure_pos);
 	shared_ptr<Figure> GetKing(Color color);
 	list<shared_ptr<Figure>> GetFigures(Color color);

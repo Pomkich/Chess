@@ -30,6 +30,7 @@ bool MoveCommand::Execute(std::shared_ptr<Desk> desk) {
 		delete_figure = true;
 		deleted_figure_type = sec_figure->GetType();
 	}
+
 	desk->MoveFigure(from, to);
 
 	if (!figure->IsWalked()) {
@@ -37,12 +38,13 @@ bool MoveCommand::Execute(std::shared_ptr<Desk> desk) {
 	}
 
 	executed = true;
+	return true;
 }
 
-void MoveCommand::Cansel(shared_ptr<Desk> desk) {
+bool MoveCommand::Cansel(shared_ptr<Desk> desk) {
 	if (!executed) {
 		cout << "can't cansel not executed command in MoveCommand::Cansel" << endl;
-		return;
+		return false;
 	}
 
 	desk->MoveFigure(to, from);
@@ -54,4 +56,5 @@ void MoveCommand::Cansel(shared_ptr<Desk> desk) {
 			desk->PlaceFigure(deleted_figure_type, Color::White, to);
 		}
 	}
+	return true;
 }

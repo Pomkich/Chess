@@ -3,6 +3,7 @@
 #include "Coordinate.h"
 
 class MoveCommand : public Command {
+	friend class MoveCommandTest;
 private:
 	Coordinate from;
 	Coordinate to;
@@ -18,5 +19,5 @@ public:
 	};
 	
 	virtual bool Execute(std::shared_ptr<Desk> desk) override;
-	virtual void Cansel(std::shared_ptr<Desk> desk) override;
+	virtual bool Cansel(std::shared_ptr<Desk> desk) override;
 };

@@ -144,6 +144,7 @@
     <ClCompile Include="Desk.cpp" />
     <ClCompile Include="DeskViewer.cpp" />
     <ClCompile Include="MoveCommand.cpp" />
+    <ClCompile Include="MoveCommandTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bishop.h" />
@@ -151,6 +152,7 @@
     <ClInclude Include="Command.h" />
     <ClInclude Include="DeskViewer.h" />
     <ClInclude Include="MoveCommand.h" />
+    <ClInclude Include="MoveCommandTest.h" />
     <ClInclude Include="Rook.h" />
     <ClInclude Include="Cell.h" />
     <ClInclude Include="Constants.h" />

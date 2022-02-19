@@ -67,14 +67,16 @@ bool CastlingCommand::Execute(std::shared_ptr<Desk> desk) {
 	executed = true;
 };
 
-void CastlingCommand::Cansel(shared_ptr<Desk> desk) {
+bool CastlingCommand::Cansel(shared_ptr<Desk> desk) {
 	if (!executed) {
 		cout << "can't cansel not executed command in CastlingCommand::Cansel" << endl;
-		return;
+		return false;
 	}
 
 	desk->MoveFigure(king_to, king_from);
 	desk->MoveFigure(rook_to, rook_from);
+
+	return true;
 }
 
 // trying to find attacked cell depending on flank and color

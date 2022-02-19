@@ -32,6 +32,18 @@ void Desk::PlaceDefaultFigures() {
 	PlaceFigure(FigureType::King, Color::Black, Coordinate(Horizontal::E, Vertical::Eigth));
 }
 
+void Desk::DeleteAllFigures() {
+	for (int i = 0; i < field_size; i++) {
+		for (int j = 0; j < field_size; j++) {
+			field[j][i].figure_ptr.reset();
+			field[j][i].has_figure = false;
+		}
+	}
+
+	figures[0].clear();
+	figures[1].clear();
+}
+
 void Desk::CalculateAttackedCells() {
 	shared_ptr<Figure> white_king;
 	shared_ptr<Figure> 	black_king;

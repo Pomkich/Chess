@@ -16,5 +16,5 @@ public:
 	CastlingCommand(Flank c_flank, Color c_col) : flank(c_flank) { color = c_col; executed = false; };
 
 	virtual bool Execute(std::shared_ptr<Desk> desk) override;
-	virtual void Cansel(std::shared_ptr<Desk> desk) override;
+	virtual bool Cansel(std::shared_ptr<Desk> desk) override;
 };
