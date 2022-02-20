@@ -57,7 +57,13 @@ bool DeskViewer::KingCheckmate(Color color, shared_ptr<Figure> attacking_figure)
 	
 	// check king move
 	auto king = virtual_desk->GetKing(color);
-	if (!king->GetMoveCells().empty()) return false;
+	for (auto cell : king->GetMoveCells()) {
+		// if find empty cell or cell not under attack with enemy figure
+		if (virtual_desk->GetFigure(cell) == nullptr ||
+			virtual_desk->GetFigure(cell)->GetColor() != color) {
+			return false;
+		}
+	}
 	// check can kill attacked figure
 	for (auto cell : attacked_cells) {
 		if (cell == attacking_figure->GetPosition()) {
@@ -84,7 +90,15 @@ bool DeskViewer::KingCheckmate(Color color, shared_ptr<Figure> attacking_figure)
 // search for pat
 bool DeskViewer::KingPat(Color color) {
 	if (KingUnderAttack(color)) return false;
-	return virtual_desk->GetAttackedCells(color).empty();
+	auto attacked_cells = virtual_desk->GetAttackedCells(color);
+	for (auto cell : attacked_cells) {
+		if (virtual_desk->GetFigure(cell) == nullptr ||
+			virtual_desk->GetFigure(cell)->GetColor() != color) {
+			return false;
+		}
+	}
+
+	return true;
 }
 // logic: calculate distance between figures, values in attack vector defines the direction in which you need to move to get 0
 // when you get 0 - you steped on all cells on way to king

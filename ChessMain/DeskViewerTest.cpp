@@ -87,6 +87,24 @@ void DeskViewerTest::KingCheckmateTest() {
 	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
 	auto figure4 = desk->GetFigure(Coordinate(Horizontal::C, Vertical::Three));
 	assert(viewer->KingCheckmate(Color::White, figure4) == false);
+
+	cout << "king checkmated: baby mat" << endl;
+	desk->DeleteAllFigures();
+	desk->PlaceDefaultFigures();
+	desk->MoveFigure(Coordinate(Horizontal::E, Vertical::Two), Coordinate(Horizontal::E, Vertical::Four));
+	desk->MoveFigure(Coordinate(Horizontal::E, Vertical::Seven), Coordinate(Horizontal::E, Vertical::Five));
+	desk->MoveFigure(Coordinate(Horizontal::B, Vertical::Eigth), Coordinate(Horizontal::A, Vertical::Six));
+	desk->MoveFigure(Coordinate(Horizontal::D, Vertical::Seven), Coordinate(Horizontal::D, Vertical::Four));
+	desk->MoveFigure(Coordinate(Horizontal::D, Vertical::One), Coordinate(Horizontal::H, Vertical::Five));
+	desk->MoveFigure(Coordinate(Horizontal::F, Vertical::One), Coordinate(Horizontal::C, Vertical::Four));
+
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
+	shared_ptr<Command> mv1 = make_shared<MoveCommand>(Coordinate(Horizontal::H, Vertical::Five),
+		Coordinate(Horizontal::F, Vertical::Seven), Color::White);
+	mv1->Execute(desk);
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
+	auto figure5 = desk->GetFigure(Coordinate(Horizontal::F, Vertical::Seven));
+	assert(viewer->KingCheckmate(Color::Black, figure5) == true);
 }
 
 void DeskViewerTest::KingPatTest() {
@@ -98,6 +116,44 @@ void DeskViewerTest::KingPatTest() {
 	desk->PlaceFigure(FigureType::Queen, Color::Black, Coordinate(Horizontal::D, Vertical::Five));
 	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
 	assert(viewer->KingPat(Color::White) == true);
+
+	RenewDesk();
+	desk->PlaceFigure(FigureType::Rook, Color::Black, Coordinate(Horizontal::D, Vertical::Two));
+	desk->PlaceFigure(FigureType::Rook, Color::Black, Coordinate(Horizontal::F, Vertical::Two));
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
+	assert(viewer->KingPat(Color::White) == true);
+
+	RenewDesk();
+	desk->PlaceFigure(FigureType::Rook, Color::Black, Coordinate(Horizontal::D, Vertical::Two));
+	desk->PlaceFigure(FigureType::Rook, Color::Black, Coordinate(Horizontal::F, Vertical::Two));
+	desk->PlaceFigure(FigureType::Pawn, Color::Black, Coordinate(Horizontal::A, Vertical::Five));
+	desk->PlaceFigure(FigureType::Pawn, Color::Black, Coordinate(Horizontal::B, Vertical::Four));
+	desk->PlaceFigure(FigureType::Pawn, Color::White, Coordinate(Horizontal::A, Vertical::Four));
+	desk->PlaceFigure(FigureType::Pawn, Color::White, Coordinate(Horizontal::B, Vertical::Three));
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
+	assert(viewer->KingPat(Color::White) == true);
+
+	RenewDesk();
+	desk->PlaceFigure(FigureType::Horse, Color::Black, Coordinate(Horizontal::D, Vertical::Two));
+	desk->PlaceFigure(FigureType::Horse, Color::Black, Coordinate(Horizontal::F, Vertical::Two));
+	desk->PlaceFigure(FigureType::Pawn, Color::Black, Coordinate(Horizontal::A, Vertical::Five));
+	desk->PlaceFigure(FigureType::Pawn, Color::Black, Coordinate(Horizontal::B, Vertical::Four));
+	desk->PlaceFigure(FigureType::Pawn, Color::White, Coordinate(Horizontal::A, Vertical::Four));
+	desk->PlaceFigure(FigureType::Pawn, Color::White, Coordinate(Horizontal::B, Vertical::Three));
+	desk->MoveFigure(Coordinate(Horizontal::E, Vertical::Eigth), Coordinate(Horizontal::E, Vertical::Three));
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
+	assert(viewer->KingPat(Color::White) == true);
+
+	RenewDesk();
+	desk->PlaceFigure(FigureType::Horse, Color::Black, Coordinate(Horizontal::D, Vertical::Two));
+	desk->PlaceFigure(FigureType::Horse, Color::White, Coordinate(Horizontal::F, Vertical::Two));
+	desk->PlaceFigure(FigureType::Pawn, Color::Black, Coordinate(Horizontal::A, Vertical::Five));
+	desk->PlaceFigure(FigureType::Pawn, Color::Black, Coordinate(Horizontal::B, Vertical::Four));
+	desk->PlaceFigure(FigureType::Pawn, Color::White, Coordinate(Horizontal::A, Vertical::Four));
+	desk->PlaceFigure(FigureType::Pawn, Color::White, Coordinate(Horizontal::B, Vertical::Three));
+	desk->MoveFigure(Coordinate(Horizontal::E, Vertical::Eigth), Coordinate(Horizontal::E, Vertical::Three));
+	desk->Draw(); cout << endl; desk->CalculateAttackedCells();
+	assert(viewer->KingPat(Color::White) == false);
 }
 
 void DeskViewerTest::RenewDesk() {
