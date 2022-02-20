@@ -39,6 +39,8 @@ bool MoveCommand::Execute(std::shared_ptr<Desk> desk) {
 	}
 
 	executed = true;
+	move_coord = to;
+
 	return true;
 }
 

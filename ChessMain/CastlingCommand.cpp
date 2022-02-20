@@ -66,6 +66,7 @@ bool CastlingCommand::Execute(std::shared_ptr<Desk> desk) {
 	rook->SetWalked(true);
 
 	executed = true;
+	move_coord = rook_to;
 
 	return true;
 };
