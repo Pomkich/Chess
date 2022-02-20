@@ -4,6 +4,7 @@
 #include <iostream>
 #include "MoveCommandTest.h"
 #include "CastlingCommandTest.h"
+#include "DeskViewerTest.h"
 
 using namespace std;
 
@@ -11,6 +12,7 @@ int main()
 {
     MoveCommandTest test1;
     CastlingCommandTest test2;
+    DeskViewerTest test3;
 
     return 0;
 }
