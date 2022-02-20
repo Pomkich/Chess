@@ -30,6 +30,10 @@ bool MoveCommand::Execute(std::shared_ptr<Desk> desk) {
 		delete_figure = true;
 		deleted_figure_type = sec_figure->GetType();
 	}
+	else if (sec_figure != nullptr && sec_figure->GetColor() == color) {
+		cout << "can't step to allied figure" << endl;
+		return false;
+	}
 
 	desk->MoveFigure(from, to);
 

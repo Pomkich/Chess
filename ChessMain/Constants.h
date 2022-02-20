@@ -15,6 +15,10 @@ enum class FigureType {
 	Pawn, Rook, Horse, Bishop, Queen, King
 };
 
+enum class FinalState {
+	WhiteCheckmated, BlackCheckmated, Pat, Undefined
+};
+
 enum class Color {	// of player
 	White, Black
 };

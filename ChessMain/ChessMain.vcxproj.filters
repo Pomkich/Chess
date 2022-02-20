@@ -57,6 +57,9 @@
     <ClCompile Include="DeskViewerTest.cpp">
       <Filter>Tests\TestsCpp</Filter>
     </ClCompile>
+    <ClCompile Include="Chess.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants.h">
@@ -112,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="DeskViewerTest.h">
       <Filter>Tests\TestsHead</Filter>
+    </ClInclude>
+    <ClInclude Include="Chess.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

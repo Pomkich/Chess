@@ -6,13 +6,18 @@
 #include "CastlingCommandTest.h"
 #include "DeskViewerTest.h"
 
+#include "Chess.h"
+
 using namespace std;
 
 int main()
 {
-    MoveCommandTest test1;
-    CastlingCommandTest test2;
-    DeskViewerTest test3;
+    //MoveCommandTest test1;
+    //CastlingCommandTest test2;
+    //DeskViewerTest test3;
+
+    Chess game;
+    game.StartNewGame();
 
     return 0;
 }

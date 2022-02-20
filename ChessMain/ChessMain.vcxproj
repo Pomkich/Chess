@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="CastlingCommand.cpp" />
     <ClCompile Include="CastlingCommandTest.cpp" />
+    <ClCompile Include="Chess.cpp" />
     <ClCompile Include="ChessMain.cpp" />
     <ClCompile Include="Desk.cpp" />
     <ClCompile Include="DeskViewer.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="Bishop.h" />
     <ClInclude Include="CastlingCommand.h" />
     <ClInclude Include="CastlingCommandTest.h" />
+    <ClInclude Include="Chess.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="DeskViewer.h" />
     <ClInclude Include="DeskViewerTest.h" />
