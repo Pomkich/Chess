@@ -37,8 +37,7 @@ public:
 			hor += vec.first;
 			ver += vec.second;
 
-			if (Coordinate::InBounds(hor, ver) && 
-				(desk[ver][hor].has_figure && desk[ver][hor].figure_ptr->GetColor() != color)) {	// if cell has enemy figure
+			if (Coordinate::InBounds(hor, ver) && desk[ver][hor].has_figure) {	// if cell has enemy figure
 				move_cells.push_back(Coordinate((Horizontal)hor, (Vertical)ver));
 			}
 		}

@@ -31,14 +31,7 @@ public:
 			coord.first += move_vec.first;
 			coord.second += move_vec.second;
 			if (Coordinate::InBounds(coord.first, coord.second)) {
-				if (!desk[coord.second][coord.first].has_figure) {
-					move_cells.push_back(Coordinate((Horizontal)coord.first, (Vertical)coord.second));
-				}
-				else {
-					if (desk[coord.second][coord.first].figure_ptr->GetColor() != color) {
-						move_cells.push_back(Coordinate((Horizontal)coord.first, (Vertical)coord.second));
-					}
-				}
+				move_cells.push_back(Coordinate((Horizontal)coord.first, (Vertical)coord.second));
 			}
 		}
 	}
