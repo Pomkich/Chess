@@ -30,7 +30,9 @@ public:
 				coord.first += move_vec.first;
 				coord.second += move_vec.second;
 				if (Coordinate::InBounds(coord.first, coord.second)) {
-					if (!desk[coord.second][coord.first].has_figure) {
+					if (!desk[coord.second][coord.first].has_figure ||
+						(desk[coord.second][coord.first].figure_ptr->GetType() == FigureType::King &&
+						desk[coord.second][coord.first].figure_ptr->GetColor() != color)) {
 						move_cells.push_back(Coordinate((Horizontal)coord.first, (Vertical)coord.second));
 					}
 					else {
