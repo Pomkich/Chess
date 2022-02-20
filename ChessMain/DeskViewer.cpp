@@ -11,6 +11,7 @@ void DeskViewer::SetDesk(shared_ptr<Desk> n_desk) {
 // the method of checking the command, if it is successful, then the command is executed on a real desk
 bool DeskViewer::CheckCommand(shared_ptr<Command> command) {
 	if (command->Execute(virtual_desk)) {
+		virtual_desk->CalculateAttackedCells();
 		if (!KingUnderAttack(command->GetColor())) {
 			return true;
 		}
