@@ -123,12 +123,18 @@ list<Coordinate> DeskViewer::CalculateAttackVector(Coordinate attack_figure_pos,
 		incrementer.second = -1;
 	else incrementer.second = 0;
 
+
+	attack_vector.first += incrementer.first;
+	attack_vector.second += incrementer.second;
+
 	list<Coordinate> cells;
 	// moving to attack figure and mark cells on way to it
-	while (attack_vector.first != 0 && attack_vector.second != 0) {
+	while (attack_vector.first != 0 || attack_vector.second != 0) {
 		attack_vector.first += incrementer.first;
 		attack_vector.second += incrementer.second;
-		cells.push_back(Coordinate((Horizontal)attack_vector.first, (Vertical)attack_vector.second));
+		king_int.first += incrementer.first;
+		king_int.second += incrementer.second;
+		cells.push_back(Coordinate((Horizontal)king_int.first, (Vertical)king_int.second));
 	}
 
 	return cells;

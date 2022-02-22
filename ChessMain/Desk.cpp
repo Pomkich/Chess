@@ -92,13 +92,43 @@ void Desk::CalculateAttackedCells() {
 			}
 		}
 	}
-
+	// if cell can be attacked by figure that is not a king, don't erase her
+	bool find_cell = false;
 	for (auto cell : marked_white_cells) {
-		attacked_cells[(int)Color::White].erase(cell);
+		find_cell = false;
+		for (auto figure : figures[(int)Color::White]) {
+			for (auto attacked_cell : figure->GetMoveCells()) {
+				if (cell == attacked_cell && figure->GetType() != FigureType::King) {
+					find_cell = true;
+					break;
+				}
+			}
+			if (find_cell) {
+				break;
+			}
+		}
+		if (!find_cell) {
+			attacked_cells[(int)Color::White].erase(cell);
+		}
 	}
 
+	find_cell = false;
 	for (auto cell : marked_black_cells) {
-		attacked_cells[(int)Color::Black].erase(cell);
+		find_cell = false;
+		for (auto figure : figures[(int)Color::Black]) {
+			for (auto attacked_cell : figure->GetMoveCells()) {
+				if (cell == attacked_cell && figure->GetType() != FigureType::King) {
+					find_cell = true;
+					break;
+				}
+			}
+			if (find_cell) {
+				break;
+			}
+		}
+		if (!find_cell) {
+			attacked_cells[(int)Color::Black].erase(cell);
+		}
 	}
 }
 
