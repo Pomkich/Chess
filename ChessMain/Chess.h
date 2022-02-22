@@ -4,6 +4,7 @@
 #include "DeskViewer.h"
 #include "MoveCommand.h"
 #include "CastlingCommand.h"
+#include "ConsolePresenter.h"
 
 class Chess {
 private:
@@ -12,6 +13,8 @@ private:
 	FinalState state;
 	shared_ptr<Desk> desk;
 	shared_ptr<DeskViewer> viewer;
+	shared_ptr<Presenter> console_handler;
+	int figures_on_desk;
 	// shared_ptr<InputHandler> input;
 
 public:

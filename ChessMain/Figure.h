@@ -31,7 +31,7 @@ public:
 	void SetWalked(bool st) { walked = st; }
 	bool IsWalked() { return walked; }
 
-	/*~Figure() {
+	~Figure() {
 		cout << "destructor called" << endl;
-	}*/
+	}
 };

@@ -60,6 +60,9 @@
     <ClCompile Include="Chess.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="ConsolePresenter.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants.h">
@@ -117,6 +120,12 @@
       <Filter>Tests\TestsHead</Filter>
     </ClInclude>
     <ClInclude Include="Chess.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Presenter.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsolePresenter.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

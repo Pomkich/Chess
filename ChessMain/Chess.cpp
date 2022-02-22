@@ -45,7 +45,9 @@ shared_ptr<Command> GetCommand(Color color) {
 Chess::Chess() {
 	desk = make_shared<Desk>();
 	viewer = make_shared<DeskViewer>();
+	console_handler = make_shared<ConsolePresenter>();
 	viewer->SetDesk(desk);
+	figures_on_desk = 0;
 	player_turn = Color::White;
 	opposite_color = Color::Black;
 	state = FinalState::Undefined;
@@ -54,6 +56,7 @@ Chess::Chess() {
 void Chess::StartNewGame() {
 	desk->DeleteAllFigures();
 	desk->PlaceDefaultFigures();
+	figures_on_desk = 32;
 	player_turn = Color::White;
 	opposite_color = Color::Black;
 	state = FinalState::Undefined;
@@ -69,7 +72,7 @@ void Chess::GameLoop() {
 		cout << "player " << (int)player_turn << " turn: ";
 		shared_ptr<Command> command;
 		command = GetCommand(player_turn);
-
+		// priority of events: game end, king shah, figure delete, figure moved
 		if (viewer->CheckCommand(command)) {
 			if (viewer->KingCheckmate(opposite_color, desk->GetFigure(command->GetMovedFigureCoord()))) {
 				if (player_turn == Color::White) {
@@ -82,12 +85,24 @@ void Chess::GameLoop() {
 			else if (viewer->KingPat(opposite_color)) {
 				state = FinalState::Pat;
 			}
+			else if (viewer->KingUnderAttack(opposite_color)) {
+				console_handler->NotifyKingShah(opposite_color);
+			}
+			else if (desk->GetFigures(Color::Black).size() + desk->GetFigures(Color::White).size() != figures_on_desk) {
+				figures_on_desk--;
+				console_handler->NotifyFigureDeleted();
+			}
+			else {
+				console_handler->NotifyFigureMoved();
+			}
 			PassTheMove();
 		}
 		else {
 			cout << "bad command" << endl;
 		}
 	}
+
+	console_handler->NotifyGameEnd(state);
 
 	switch (state) {
 	case FinalState::WhiteCheckmated:

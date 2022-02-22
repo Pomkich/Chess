@@ -143,6 +143,7 @@
     <ClCompile Include="CastlingCommandTest.cpp" />
     <ClCompile Include="Chess.cpp" />
     <ClCompile Include="ChessMain.cpp" />
+    <ClCompile Include="ConsolePresenter.cpp" />
     <ClCompile Include="Desk.cpp" />
     <ClCompile Include="DeskViewer.cpp" />
     <ClCompile Include="DeskViewerTest.cpp" />
@@ -155,10 +156,12 @@
     <ClInclude Include="CastlingCommandTest.h" />
     <ClInclude Include="Chess.h" />
     <ClInclude Include="Command.h" />
+    <ClInclude Include="ConsolePresenter.h" />
     <ClInclude Include="DeskViewer.h" />
     <ClInclude Include="DeskViewerTest.h" />
     <ClInclude Include="MoveCommand.h" />
     <ClInclude Include="MoveCommandTest.h" />
+    <ClInclude Include="Presenter.h" />
     <ClInclude Include="Rook.h" />
     <ClInclude Include="Cell.h" />
     <ClInclude Include="Constants.h" />
