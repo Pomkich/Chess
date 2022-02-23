@@ -10,7 +10,7 @@ class SfmlControlManager {
 	sf::Texture desk_texture;
 	sf::Texture figure_textures;
 	sf::Sprite desk_sprite;
-	std::vector<sf::Sprite> figure_sprites;
+	std::array<std::vector<std::shared_ptr<sf::Sprite>>, 2> figure_sprites;
 
 	std::shared_ptr<Desk> desk;
 
@@ -35,21 +35,21 @@ public:
 			(double)window.getSize().y / (double)desk_texture.getSize().y);
 
 		for (auto figure : desk->GetFigures(Color::White)) {
-			sf::Sprite figure_sprite;
-			figure_sprite.setTexture(figure_textures);
-			figure_sprite.setTextureRect(sf::IntRect(1000 - (int)figure->GetType() * 200, (int)figure->GetColor() * 200, 200, 200));
-			figure_sprite.setScale((double)80 / 200, (double)80 / 200);
-			figure_sprite.setPosition(560 - (int)figure->GetPosition().hor * 80, 560 - (int)figure->GetPosition().ver * 80);
-			figure_sprites.push_back(figure_sprite);
+			shared_ptr<sf::Sprite> figure_sprite = std::make_shared<sf::Sprite>();
+			figure_sprite->setTexture(figure_textures);
+			figure_sprite->setTextureRect(sf::IntRect(1000 - (int)figure->GetType() * 200, (int)figure->GetColor() * 200, 200, 200));
+			figure_sprite->setScale((double)80 / 200, (double)80 / 200);
+			figure_sprite->setPosition(560 - (int)figure->GetPosition().hor * 80, 560 - (int)figure->GetPosition().ver * 80);
+			figure_sprites[0].push_back(figure_sprite);
 		}
 
 		for (auto figure : desk->GetFigures(Color::Black)) {
-			sf::Sprite figure_sprite;
-			figure_sprite.setTexture(figure_textures);
-			figure_sprite.setTextureRect(sf::IntRect(1000 - (int)figure->GetType() * 200, (int)figure->GetColor() * 200, 200, 200));
-			figure_sprite.setScale((double)80 / 200, (double)80 / 200);
-			figure_sprite.setPosition(560 - (int)figure->GetPosition().hor * 80, 560 - (int)figure->GetPosition().ver * 80);
-			figure_sprites.push_back(figure_sprite);
+			shared_ptr<sf::Sprite> figure_sprite = std::make_shared<sf::Sprite>();
+			figure_sprite->setTexture(figure_textures);
+			figure_sprite->setTextureRect(sf::IntRect(1000 - (int)figure->GetType() * 200, (int)figure->GetColor() * 200, 200, 200));
+			figure_sprite->setScale((double)80 / 200, (double)80 / 200);
+			figure_sprite->setPosition(560 - (int)figure->GetPosition().hor * 80, 560 - (int)figure->GetPosition().ver * 80);
+			figure_sprites[1].push_back(figure_sprite);
 		}
 
 		while (window.isOpen())
@@ -59,17 +59,36 @@ public:
 			{
 				if (event.type == sf::Event::Closed)
 					window.close();
+				else if (event.type == sf::Event::MouseButtonPressed) {
+					std::cout << "button pressed" << std::endl;
+					auto figure = GetSprite(Color::White, sf::Mouse::getPosition(window));
+					if (figure != nullptr) {
+						std::cout << "here is figure" << std::endl;
+					}
+				}
 			}
 
 			window.clear();
 			window.draw(desk_sprite);
-			for (auto sprite : figure_sprites) {
-				window.draw(sprite);
+			for (auto sprite : figure_sprites[0]) {
+				window.draw(*sprite);
+			}
+			for (auto sprite : figure_sprites[1]) {
+				window.draw(*sprite);
 			}
 			window.display();
 
 			this_thread::sleep_for(std::chrono::milliseconds(100));
 		}
+	}
+
+	std::shared_ptr<sf::Sprite> GetSprite(Color color, sf::Vector2i pos) {
+		for (auto sprite : figure_sprites[(int)color]) {
+			if (sprite->getGlobalBounds().contains(pos.x, pos.y)) {
+				return sprite;
+			}
+		}
+		return std::shared_ptr<sf::Sprite>();
 	}
 
 
