@@ -8,6 +8,8 @@
 
 #include "Chess.h"
 
+#include "SfmlControlManager.h"
+
 using namespace std;
 
 int main()
@@ -16,8 +18,10 @@ int main()
     //CastlingCommandTest test2;
     //DeskViewerTest test3;
 
-    Chess game;
-    game.StartNewGame();
+    //Chess game;
+    //game.StartNewGame();
+    SfmlControlManager manager;
+
 
     return 0;
 }
