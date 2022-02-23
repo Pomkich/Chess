@@ -19,8 +19,10 @@ public:
 		desk = make_shared<Desk>();
 		desk->PlaceDefaultFigures();
 
+		const int field_width = 100;
+		const int field_height = 100;
 
-		window.create(sf::VideoMode(640, 640), "Chess");
+		window.create(sf::VideoMode(field_width * 8, field_height * 8), "Chess");
 		if (!desk_texture.loadFromFile("resourses/desk.png")) {
 			std::cout << "can't load desk texture" << std::endl;
 		}
@@ -34,23 +36,29 @@ public:
 		desk_sprite.setScale((double)window.getSize().x / (double)desk_texture.getSize().x, 
 			(double)window.getSize().y / (double)desk_texture.getSize().y);
 
-		for (auto figure : desk->GetFigures(Color::White)) {
-			shared_ptr<sf::Sprite> figure_sprite = std::make_shared<sf::Sprite>();
-			figure_sprite->setTexture(figure_textures);
-			figure_sprite->setTextureRect(sf::IntRect(1000 - (int)figure->GetType() * 200, (int)figure->GetColor() * 200, 200, 200));
-			figure_sprite->setScale((double)80 / 200, (double)80 / 200);
-			figure_sprite->setPosition(560 - (int)figure->GetPosition().hor * 80, 560 - (int)figure->GetPosition().ver * 80);
-			figure_sprites[0].push_back(figure_sprite);
+		for (int color = 0; color < 2; color++) {
+			for (auto figure : desk->GetFigures((Color)color)) {
+				shared_ptr<sf::Sprite> figure_sprite = std::make_shared<sf::Sprite>();
+				figure_sprite->setTexture(figure_textures);
+
+				const int texture_width = figure_textures.getSize().x;
+				const int texture_height = figure_textures.getSize().y;
+				const int figure_width = texture_width / 6;	// because here is only 6 figures
+				const int figure_heigth = texture_height / 2;	// because only two colors
+
+				figure_sprite->setTextureRect(sf::IntRect(
+					texture_width - figure_width - (int)figure->GetType() * figure_width,
+					(int)figure->GetColor() * figure_heigth, figure_width, figure_heigth));
+				// resize for desk size
+				figure_sprite->setScale((double)field_width / figure_width, (double)field_height / figure_heigth);
+				figure_sprite->setPosition(
+					field_width * 7 - (int)figure->GetPosition().hor * field_width,
+					field_height * 7 - (int)figure->GetPosition().ver * field_height);
+				figure_sprites[color].push_back(figure_sprite);
+			}
 		}
 
-		for (auto figure : desk->GetFigures(Color::Black)) {
-			shared_ptr<sf::Sprite> figure_sprite = std::make_shared<sf::Sprite>();
-			figure_sprite->setTexture(figure_textures);
-			figure_sprite->setTextureRect(sf::IntRect(1000 - (int)figure->GetType() * 200, (int)figure->GetColor() * 200, 200, 200));
-			figure_sprite->setScale((double)80 / 200, (double)80 / 200);
-			figure_sprite->setPosition(560 - (int)figure->GetPosition().hor * 80, 560 - (int)figure->GetPosition().ver * 80);
-			figure_sprites[1].push_back(figure_sprite);
-		}
+		std::shared_ptr<sf::Sprite> draged_figure;
 
 		while (window.isOpen())
 		{
@@ -63,9 +71,18 @@ public:
 					std::cout << "button pressed" << std::endl;
 					auto figure = GetSprite(Color::White, sf::Mouse::getPosition(window));
 					if (figure != nullptr) {
-						std::cout << "here is figure" << std::endl;
+						std::cout << "here is figure" << std::endl;;
+						draged_figure = figure;
 					}
 				}
+				else if (event.type == sf::Event::MouseButtonReleased) {
+					draged_figure.reset();
+				}
+			}
+			if (draged_figure != nullptr) {
+				draged_figure->setPosition(
+					sf::Mouse::getPosition(window).x - draged_figure->getGlobalBounds().width / 2,
+					sf::Mouse::getPosition(window).y - draged_figure->getGlobalBounds().height / 2);
 			}
 
 			window.clear();
@@ -78,7 +95,7 @@ public:
 			}
 			window.display();
 
-			this_thread::sleep_for(std::chrono::milliseconds(100));
+			this_thread::sleep_for(std::chrono::milliseconds(10));
 		}
 	}
 
