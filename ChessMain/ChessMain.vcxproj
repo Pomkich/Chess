@@ -152,6 +152,7 @@
     <ClCompile Include="DeskViewerTest.cpp" />
     <ClCompile Include="MoveCommand.cpp" />
     <ClCompile Include="MoveCommandTest.cpp" />
+    <ClCompile Include="SfmlControlManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bishop.h" />
