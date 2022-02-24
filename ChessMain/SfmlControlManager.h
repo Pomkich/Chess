@@ -11,7 +11,7 @@ class SfmlControlManager : public Presenter, public enable_shared_from_this<Sfml
 	sf::Texture desk_texture;
 	sf::Texture figure_textures;
 	sf::Sprite desk_sprite;
-	std::array<std::vector<std::shared_ptr<sf::Sprite>>, 2> figure_sprites;
+	std::array<std::vector<std::pair<std::shared_ptr<sf::Sprite>, std::shared_ptr<Figure>>>, 2> figures_with_sprites;
 
 	std::shared_ptr<Chess> game;
 	std::shared_ptr<Desk> desk;
@@ -25,8 +25,9 @@ public:
 	void InitPointers();
 	void inputThread();
 	void Run();
-	std::shared_ptr<sf::Sprite> GetSprite(Color color, sf::Vector2i pos);
-	
+	std::pair<std::shared_ptr<sf::Sprite>, std::shared_ptr<Figure>> GetFigureWithSprite(Color color, sf::Vector2i pos);
+	void RefreshPositions();
+
 	virtual void NotifyGameStarted() override;
 	virtual void NotifyKingShah(Color oposite_color) override;
 	virtual void NotifyGameEnd(FinalState state) override;

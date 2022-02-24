@@ -49,14 +49,14 @@ void SfmlControlManager::InitResources() {
 			figure_sprite->setPosition(
 				field_width * 7 - (int)figure->GetPosition().hor * field_width,
 				field_height * 7 - (int)figure->GetPosition().ver * field_height);
-			figure_sprites[color].push_back(figure_sprite);
+			figures_with_sprites[color].push_back(std::make_pair(figure_sprite, figure));
 		}
 	}
 }
 
 void SfmlControlManager::inputThread() {
 	window.create(sf::VideoMode(field_width * 8, field_height * 8), "Chess");
-	std::shared_ptr<sf::Sprite> draged_figure;
+	std::pair<std::shared_ptr<sf::Sprite>, std::shared_ptr<Figure>> draged_figure;
 
 	while (window.isOpen())
 	{
@@ -67,32 +67,32 @@ void SfmlControlManager::inputThread() {
 				window.close();
 			else if (event.type == sf::Event::MouseButtonPressed) {
 				std::cout << "button pressed" << std::endl;
-				auto figure = GetSprite(Color::White, sf::Mouse::getPosition(window));
-				if (figure != nullptr) {
+				auto figure = GetFigureWithSprite(Color::White, sf::Mouse::getPosition(window));
+				if (figure.first != nullptr) {
 					std::cout << "here is figure" << std::endl;;
 					draged_figure = figure;
 				}
 			}
-			else if (event.type == sf::Event::MouseButtonReleased && draged_figure != nullptr) {
-				draged_figure->setPosition(
-					((int)draged_figure->getPosition().x + (int)draged_figure->getGlobalBounds().width / 2) / field_width * field_width,
-					((int)draged_figure->getPosition().y + (int)draged_figure->getGlobalBounds().height / 2) / field_height * field_height);
-				draged_figure.reset();
+			else if (event.type == sf::Event::MouseButtonReleased && draged_figure.first != nullptr) {
+				draged_figure.first->setPosition(
+					((int)draged_figure.first->getPosition().x + (int)draged_figure.first->getGlobalBounds().width / 2) / field_width * field_width,
+					((int)draged_figure.first->getPosition().y + (int)draged_figure.first->getGlobalBounds().height / 2) / field_height * field_height);
+				draged_figure.first.reset();
 			}
 		}
-		if (draged_figure != nullptr) {
-			draged_figure->setPosition(
-				sf::Mouse::getPosition(window).x - draged_figure->getGlobalBounds().width / 2,
-				sf::Mouse::getPosition(window).y - draged_figure->getGlobalBounds().height / 2);
+		if (draged_figure.first != nullptr) {
+			draged_figure.first->setPosition(
+				sf::Mouse::getPosition(window).x - draged_figure.first->getGlobalBounds().width / 2,
+				sf::Mouse::getPosition(window).y - draged_figure.first->getGlobalBounds().height / 2);
 		}
 
 		window.clear();
 		window.draw(desk_sprite);
-		for (auto sprite : figure_sprites[0]) {
-			window.draw(*sprite);
+		for (auto sprite : figures_with_sprites[0]) {
+			window.draw(*sprite.first);
 		}
-		for (auto sprite : figure_sprites[1]) {
-			window.draw(*sprite);
+		for (auto sprite : figures_with_sprites[1]) {
+			window.draw(*sprite.first);
 		}
 		window.display();
 
@@ -100,13 +100,24 @@ void SfmlControlManager::inputThread() {
 	}
 }
 
-std::shared_ptr<sf::Sprite> SfmlControlManager::GetSprite(Color color, sf::Vector2i pos) {
-	for (auto sprite : figure_sprites[(int)color]) {
-		if (sprite->getGlobalBounds().contains(pos.x, pos.y)) {
-			return sprite;
+std::pair<std::shared_ptr<sf::Sprite>, std::shared_ptr<Figure>> 
+	SfmlControlManager::GetFigureWithSprite(Color color, sf::Vector2i pos) {
+	for (auto figure : figures_with_sprites[(int)color]) {
+		if (figure.first->getGlobalBounds().contains(pos.x, pos.y)) {
+			return figure;
 		}
 	}
-	return std::shared_ptr<sf::Sprite>();
+	return std::pair<std::shared_ptr<sf::Sprite>, std::shared_ptr<Figure>>();
+}
+
+void SfmlControlManager::RefreshPositions() {
+	for (int color = 0; color < 2; color++) {
+		for (auto figure : figures_with_sprites[color]) {
+			figure.first->setPosition(
+				field_width * 7 - (int)figure.second->GetPosition().hor * field_width,
+				field_height * 7 - (int)figure.second->GetPosition().ver * field_height);
+		}
+	}
 }
 
 void SfmlControlManager::NotifyGameStarted() {
@@ -127,6 +138,7 @@ void SfmlControlManager::NotifyGameEnd(FinalState state) {
 }
 
 void SfmlControlManager::NotifyFigureMoved() {
+	RefreshPositions();
 	cout << "figure moved" << endl;
 }
 
