@@ -75,7 +75,10 @@ public:
 						draged_figure = figure;
 					}
 				}
-				else if (event.type == sf::Event::MouseButtonReleased) {
+				else if (event.type == sf::Event::MouseButtonReleased && draged_figure != nullptr) {
+					draged_figure->setPosition(
+						((int)draged_figure->getPosition().x + (int)draged_figure->getGlobalBounds().width / 2) / field_width * field_width,
+						((int)draged_figure->getPosition().y + (int)draged_figure->getGlobalBounds().height / 2) / field_height * field_height);
 					draged_figure.reset();
 				}
 			}
