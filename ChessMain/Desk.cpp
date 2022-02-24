@@ -1,6 +1,8 @@
 #include "Desk.h"
 
 Desk::Desk() {
+	figures[0].clear();
+	figures[1].clear();
 }
 
 void Desk::PlaceDefaultFigures() {

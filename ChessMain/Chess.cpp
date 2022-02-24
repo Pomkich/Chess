@@ -42,10 +42,10 @@ shared_ptr<Command> GetCommand(Color color) {
 	return cmd;
 }
 
-Chess::Chess() {
-	desk = make_shared<Desk>();
+Chess::Chess(shared_ptr<Desk> new_desk, weak_ptr<Presenter> new_presenter) {
+	desk = new_desk;
+	presenter = new_presenter;
 	viewer = make_shared<DeskViewer>();
-	console_handler = make_shared<ConsolePresenter>();
 	viewer->SetDesk(desk);
 	figures_on_desk = 0;
 	player_turn = Color::White;
@@ -60,6 +60,7 @@ void Chess::StartNewGame() {
 	player_turn = Color::White;
 	opposite_color = Color::Black;
 	state = FinalState::Undefined;
+	presenter.lock()->NotifyGameStarted();
 	GameLoop();
 }
 
@@ -86,14 +87,14 @@ void Chess::GameLoop() {
 				state = FinalState::Pat;
 			}
 			else if (viewer->KingUnderAttack(opposite_color)) {
-				console_handler->NotifyKingShah(opposite_color);
+				presenter.lock()->NotifyKingShah(opposite_color);
 			}
 			else if (desk->GetFigures(Color::Black).size() + desk->GetFigures(Color::White).size() != figures_on_desk) {
 				figures_on_desk--;
-				console_handler->NotifyFigureDeleted();
+				presenter.lock()->NotifyFigureDeleted();
 			}
 			else {
-				console_handler->NotifyFigureMoved();
+				presenter.lock()->NotifyFigureMoved();
 			}
 			PassTheMove();
 		}
@@ -102,7 +103,7 @@ void Chess::GameLoop() {
 		}
 	}
 
-	console_handler->NotifyGameEnd(state);
+	presenter.lock()->NotifyGameEnd(state);
 
 	switch (state) {
 	case FinalState::WhiteCheckmated:

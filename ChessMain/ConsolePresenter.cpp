@@ -2,6 +2,10 @@
 
 ConsolePresenter::ConsolePresenter() {}
 
+void ConsolePresenter::NotifyGameStarted() {
+	cout << "game started" << endl;
+}
+
 void ConsolePresenter::NotifyKingShah(Color oposite_color) {
 	cout << "king " << (int)oposite_color << " shahed" << endl;
 }

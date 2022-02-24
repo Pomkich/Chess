@@ -20,8 +20,11 @@ int main()
 
     //Chess game;
     //game.StartNewGame();
-    SfmlControlManager manager;
+    shared_ptr<SfmlControlManager> manager = make_shared<SfmlControlManager>();
+    manager->InitPointers();
+    manager->Run();
 
+    this_thread::sleep_for(chrono::hours(1));
 
     return 0;
 }

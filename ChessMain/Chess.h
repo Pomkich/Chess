@@ -13,12 +13,12 @@ private:
 	FinalState state;
 	shared_ptr<Desk> desk;
 	shared_ptr<DeskViewer> viewer;
-	shared_ptr<Presenter> console_handler;
+	weak_ptr<Presenter> presenter;
 	int figures_on_desk;
 	// shared_ptr<InputHandler> input;
 
 public:
-	Chess();
+	Chess(shared_ptr<Desk> new_desk, weak_ptr<Presenter> new_presenter);
 	void StartNewGame();
 	void GameLoop();
 	void PassTheMove();

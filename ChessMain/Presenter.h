@@ -3,6 +3,7 @@
 
 class Presenter {
 public:
+	virtual void NotifyGameStarted() = 0;
 	virtual void NotifyKingShah(Color oposite_color) = 0;
 	virtual void NotifyGameEnd(FinalState state) = 0;
 	virtual void NotifyFigureMoved() = 0;

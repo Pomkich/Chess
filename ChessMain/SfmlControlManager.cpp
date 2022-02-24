@@ -1,13 +1,16 @@
 #include "SfmlControlManager.h"
 
 SfmlControlManager::SfmlControlManager() {
+	
+}
+
+void SfmlControlManager::Run() {
+	game->StartNewGame();
+}
+
+void SfmlControlManager::InitPointers() {
 	desk = make_shared<Desk>();
-	desk->PlaceDefaultFigures();
-
-	InitResources();
-
-	std::thread input_thr(&SfmlControlManager::inputThread, this);
-	input_thr.join();
+	game = make_shared<Chess>(desk, shared_from_this());
 }
 
 void SfmlControlManager::InitResources() {
@@ -31,7 +34,10 @@ void SfmlControlManager::InitResources() {
 		const int figure_width = texture_width / 6;	// because here is only 6 figures
 		const int figure_heigth = texture_height / 2;	// because only two colors
 
-		for (auto figure : desk->GetFigures((Color)color)) {
+		list<shared_ptr<Figure>> figures = desk->GetFigures((Color)color);
+		if (figures.empty()) continue;
+
+		for (auto figure : figures) {
 			shared_ptr<sf::Sprite> figure_sprite = std::make_shared<sf::Sprite>();
 			figure_sprite->setTexture(figure_textures);
 
@@ -101,4 +107,29 @@ std::shared_ptr<sf::Sprite> SfmlControlManager::GetSprite(Color color, sf::Vecto
 		}
 	}
 	return std::shared_ptr<sf::Sprite>();
+}
+
+void SfmlControlManager::NotifyGameStarted() {
+	cout << "game started" << endl;
+
+	InitResources();
+
+	std::thread input_thr(&SfmlControlManager::inputThread, shared_from_this());
+	input_thr.detach();
+}
+
+void SfmlControlManager::NotifyKingShah(Color oposite_color) {
+	cout << "shah" << endl;
+}
+
+void SfmlControlManager::NotifyGameEnd(FinalState state) {
+	cout << "game end" << endl;
+}
+
+void SfmlControlManager::NotifyFigureMoved() {
+	cout << "figure moved" << endl;
+}
+
+void SfmlControlManager::NotifyFigureDeleted() {
+	cout << "figure deleted" << endl;
 }
