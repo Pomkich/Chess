@@ -47,6 +47,7 @@ Chess::Chess(shared_ptr<Desk> new_desk, weak_ptr<Presenter> new_presenter) {
 	presenter = new_presenter;
 	viewer = make_shared<DeskViewer>();
 	viewer->SetDesk(desk);
+	command_holder = make_shared<CommandHolder>();
 	figures_on_desk = 0;
 	player_turn = Color::White;
 	opposite_color = Color::Black;
@@ -72,7 +73,7 @@ void Chess::GameLoop() {
 
 		cout << "player " << (int)player_turn << " turn: ";
 		shared_ptr<Command> command;
-		command = GetCommand(player_turn);
+		command = command_holder->GetCommand();
 		// priority of events: game end, king shah, figure delete, figure moved
 		if (viewer->CheckCommand(command)) {
 			if (viewer->KingCheckmate(opposite_color, desk->GetFigure(command->GetMovedFigureCoord()))) {

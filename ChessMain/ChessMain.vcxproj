@@ -146,6 +146,7 @@
     <ClCompile Include="CastlingCommandTest.cpp" />
     <ClCompile Include="Chess.cpp" />
     <ClCompile Include="ChessMain.cpp" />
+    <ClCompile Include="CommandHolder.cpp" />
     <ClCompile Include="ConsolePresenter.cpp" />
     <ClCompile Include="Desk.cpp" />
     <ClCompile Include="DeskViewer.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="CastlingCommandTest.h" />
     <ClInclude Include="Chess.h" />
     <ClInclude Include="Command.h" />
+    <ClInclude Include="CommandHolder.h" />
     <ClInclude Include="ConsolePresenter.h" />
     <ClInclude Include="DeskViewer.h" />
     <ClInclude Include="DeskViewerTest.h" />

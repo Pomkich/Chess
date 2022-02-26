@@ -80,6 +80,7 @@ void SfmlControlManager::inputThread() {
 				draged_figure.first.reset();
 			}
 		}
+		// follow for cursor
 		if (draged_figure.first != nullptr) {
 			draged_figure.first->setPosition(
 				sf::Mouse::getPosition(window).x - draged_figure.first->getGlobalBounds().width / 2,
