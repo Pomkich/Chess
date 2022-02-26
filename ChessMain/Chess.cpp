@@ -91,9 +91,9 @@ void Chess::GameLoop() {
 			else if (viewer->KingUnderAttack(opposite_color)) {
 				presenter.lock()->NotifyKingShah(opposite_color);
 			}
-			else if (desk->GetFigures(Color::Black).size() + desk->GetFigures(Color::White).size() != figures_on_desk) {
+			if (desk->GetFigures(Color::Black).size() + desk->GetFigures(Color::White).size() != figures_on_desk) {
 				figures_on_desk--;
-				presenter.lock()->NotifyFigureDeleted();
+				presenter.lock()->NotifyFigureDeleted(opposite_color);
 			}
 			else {
 				presenter.lock()->NotifyFigureMoved();

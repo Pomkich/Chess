@@ -18,6 +18,6 @@ void ConsolePresenter::NotifyFigureMoved() {
 	cout << "figure moved" << endl;
 }
 
-void ConsolePresenter::NotifyFigureDeleted() {
+void ConsolePresenter::NotifyFigureDeleted(Color color) {
 	cout << "figure deleted" << endl;
 }

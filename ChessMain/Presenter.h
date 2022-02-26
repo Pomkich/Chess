@@ -12,7 +12,7 @@ public:
 	virtual void NotifyKingShah(Color oposite_color) = 0;
 	virtual void NotifyGameEnd(FinalState state) = 0;
 	virtual void NotifyFigureMoved() = 0;
-	virtual void NotifyFigureDeleted() = 0;
+	virtual void NotifyFigureDeleted(Color color) = 0;
 	virtual void NotifyBadCommand() = 0;
 };
 

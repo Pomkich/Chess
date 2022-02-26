@@ -11,5 +11,5 @@ public:
 	virtual void NotifyKingShah(Color oposite_color) override;
 	virtual void NotifyGameEnd(FinalState state) override;
 	virtual void NotifyFigureMoved() override;
-	virtual void NotifyFigureDeleted() override;
+	virtual void NotifyFigureDeleted(Color color) override;
 };

@@ -157,8 +157,17 @@ void SfmlControlManager::NotifyFigureMoved() {
 	cout << "figure moved" << endl;
 }
 
-void SfmlControlManager::NotifyFigureDeleted() {
+void SfmlControlManager::NotifyFigureDeleted(Color color) {
 	cout << "figure deleted" << endl;
+	for (auto it = figures_with_sprites[(int)color].begin(); it != figures_with_sprites[(int)color].end(); it++) {
+		cout << "use count: " << it->second.use_count() << endl;
+		if (it->second.use_count() == 1) {
+			it->second.reset();
+			it->first.reset();
+			figures_with_sprites[(int)color].erase(it);
+			break;
+		}
+	}
 	RefreshPositions();
 }
 
