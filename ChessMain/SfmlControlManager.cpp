@@ -82,7 +82,6 @@ void SfmlControlManager::inputThread() {
 				Coordinate drop_coord(
 					(Horizontal)(7 - ((int)draged_figure.first->getPosition().x + (int)draged_figure.first->getGlobalBounds().width / 2) / field_width),
 					(Vertical)(7 - ((int)draged_figure.first->getPosition().y + (int)draged_figure.first->getGlobalBounds().height / 2) / field_height));
-				cout << draged_figure.first->getPosition().x << "   " << draged_figure.first->getPosition().y << endl;
 				GenerateCommand(draged_figure.second->GetPosition(), drop_coord, Color::White);
 				draged_figure.first.reset();
 			}
@@ -145,10 +144,12 @@ void SfmlControlManager::NotifyGameStarted() {
 
 void SfmlControlManager::NotifyKingShah(Color oposite_color) {
 	cout << "shah" << endl;
+	RefreshPositions();
 }
 
 void SfmlControlManager::NotifyGameEnd(FinalState state) {
 	cout << "game end" << endl;
+	RefreshPositions();
 }
 
 void SfmlControlManager::NotifyFigureMoved() {
@@ -158,4 +159,10 @@ void SfmlControlManager::NotifyFigureMoved() {
 
 void SfmlControlManager::NotifyFigureDeleted() {
 	cout << "figure deleted" << endl;
+	RefreshPositions();
+}
+
+void SfmlControlManager::NotifyBadCommand() {
+	cout << "bad command" << endl;
+	RefreshPositions();
 }

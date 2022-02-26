@@ -34,5 +34,6 @@ public:
 	virtual void NotifyGameEnd(FinalState state) override;
 	virtual void NotifyFigureMoved() override;
 	virtual void NotifyFigureDeleted() override;
+	virtual void NotifyBadCommand() override;
 
 };

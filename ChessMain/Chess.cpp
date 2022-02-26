@@ -101,7 +101,7 @@ void Chess::GameLoop() {
 			PassTheMove();
 		}
 		else {
-			cout << "bad command" << endl;
+			presenter.lock()->NotifyBadCommand();
 		}
 	}
 
