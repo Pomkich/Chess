@@ -15,5 +15,6 @@ void CommandHolder::SetCommand(shared_ptr<Command> cmd) {
 shared_ptr<Command> CommandHolder::GetCommand() {
 	unique_lock<mutex> lock(mut);
 	has_command.wait(lock, [&]() { return ready_to_send; });
+	ready_to_send = false;
 	return hold_command;
 }

@@ -235,7 +235,7 @@ void Desk::Draw() {
 	list<shared_ptr<Figure>> all_figures = figures[0];
 	all_figures.insert(all_figures.end(), figures[1].begin(), figures[1].end());
 
-	cout << "     A    B    C    D    E    F    G    H   " << endl;
+	cout << "     H    G    F    E    D    C    B    A" << endl;
 	for (int y = 0; y < 8; y++) {
 		cout << "   .____.____.____.____.____.____.____.____." << endl;
 		cout << y + 1 << "  ";

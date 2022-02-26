@@ -48,6 +48,7 @@ Chess::Chess(shared_ptr<Desk> new_desk, weak_ptr<Presenter> new_presenter) {
 	viewer = make_shared<DeskViewer>();
 	viewer->SetDesk(desk);
 	command_holder = make_shared<CommandHolder>();
+	presenter.lock()->SetCommandHolder(command_holder);
 	figures_on_desk = 0;
 	player_turn = Color::White;
 	opposite_color = Color::Black;

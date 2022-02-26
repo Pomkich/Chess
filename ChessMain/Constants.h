@@ -3,13 +3,20 @@
 
 static const int field_size = 8;
 
-enum class Horizontal {
+/*enum class Horizontal {
 	A = 0, B, C, D, E, F, G, H 
+};*/
+
+enum class Horizontal {
+	H = 0, G, F, E, D, C, B, A
 };
 
 enum class Vertical {
 	One = 0, Two, Three, Four, Five, Six, Seven, Eigth
 };
+/*enum class Vertical {
+	Eigth = 0, Seven, Six, Five, Four, Three, Two, One
+};*/
 
 enum class FigureType {
 	Pawn, Rook, Horse, Bishop, Queen, King

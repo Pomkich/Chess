@@ -46,6 +46,8 @@ void SfmlControlManager::InitResources() {
 				(int)figure->GetColor() * figure_heigth, figure_width, figure_heigth));
 			// resize for desk size
 			figure_sprite->setScale((double)field_width / figure_width, (double)field_height / figure_heigth);
+			//field_width * 7 - (int)figure->GetPosition().hor * field_width,
+			//field_height * 7 - (int)figure->GetPosition().ver * field_height
 			figure_sprite->setPosition(
 				field_width * 7 - (int)figure->GetPosition().hor * field_width,
 				field_height * 7 - (int)figure->GetPosition().ver * field_height);
@@ -74,9 +76,14 @@ void SfmlControlManager::inputThread() {
 				}
 			}
 			else if (event.type == sf::Event::MouseButtonReleased && draged_figure.first != nullptr) {
-				draged_figure.first->setPosition(
-					((int)draged_figure.first->getPosition().x + (int)draged_figure.first->getGlobalBounds().width / 2) / field_width * field_width,
-					((int)draged_figure.first->getPosition().y + (int)draged_figure.first->getGlobalBounds().height / 2) / field_height * field_height);
+				//draged_figure.first->setPosition(
+				//	((int)draged_figure.first->getPosition().x + (int)draged_figure.first->getGlobalBounds().width / 2) / field_width * field_width,
+				//	((int)draged_figure.first->getPosition().y + (int)draged_figure.first->getGlobalBounds().height / 2) / field_height * field_height);
+				Coordinate drop_coord(
+					(Horizontal)(7 - ((int)draged_figure.first->getPosition().x + (int)draged_figure.first->getGlobalBounds().width / 2) / field_width),
+					(Vertical)(7 - ((int)draged_figure.first->getPosition().y + (int)draged_figure.first->getGlobalBounds().height / 2) / field_height));
+				cout << draged_figure.first->getPosition().x << "   " << draged_figure.first->getPosition().y << endl;
+				GenerateCommand(draged_figure.second->GetPosition(), drop_coord, Color::White);
 				draged_figure.first.reset();
 			}
 		}
@@ -119,6 +126,12 @@ void SfmlControlManager::RefreshPositions() {
 				field_height * 7 - (int)figure.second->GetPosition().ver * field_height);
 		}
 	}
+}
+
+void SfmlControlManager::GenerateCommand(Coordinate from, Coordinate to, Color color) {
+	// simple move command
+	shared_ptr<MoveCommand> move = make_shared<MoveCommand>(from, to, color);
+	command_holder->SetCommand(move);
 }
 
 void SfmlControlManager::NotifyGameStarted() {

@@ -27,6 +27,7 @@ public:
 	void Run();
 	std::pair<std::shared_ptr<sf::Sprite>, std::shared_ptr<Figure>> GetFigureWithSprite(Color color, sf::Vector2i pos);
 	void RefreshPositions();
+	void GenerateCommand(Coordinate from, Coordinate to, Color color);
 
 	virtual void NotifyGameStarted() override;
 	virtual void NotifyKingShah(Color oposite_color) override;
