@@ -135,3 +135,5 @@ void Chess::PassTheMove() {
 		break;
 	}
 }
+
+Color Chess::GetTurnColor() { return player_turn; }

@@ -69,7 +69,7 @@ void SfmlControlManager::inputThread() {
 				window.close();
 			else if (event.type == sf::Event::MouseButtonPressed) {
 				std::cout << "button pressed" << std::endl;
-				auto figure = GetFigureWithSprite(Color::White, sf::Mouse::getPosition(window));
+				auto figure = GetFigureWithSprite(game->GetTurnColor(), sf::Mouse::getPosition(window));
 				if (figure.first != nullptr) {
 					std::cout << "here is figure" << std::endl;;
 					draged_figure = figure;
@@ -82,7 +82,7 @@ void SfmlControlManager::inputThread() {
 				Coordinate drop_coord(
 					(Horizontal)(7 - ((int)draged_figure.first->getPosition().x + (int)draged_figure.first->getGlobalBounds().width / 2) / field_width),
 					(Vertical)(7 - ((int)draged_figure.first->getPosition().y + (int)draged_figure.first->getGlobalBounds().height / 2) / field_height));
-				GenerateCommand(draged_figure.second->GetPosition(), drop_coord, Color::White);
+				GenerateCommand(draged_figure.second->GetPosition(), drop_coord, game->GetTurnColor());
 				draged_figure.first.reset();
 			}
 		}

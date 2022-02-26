@@ -23,4 +23,6 @@ public:
 	void StartNewGame();
 	void GameLoop();
 	void PassTheMove();
+
+	Color GetTurnColor();
 };
