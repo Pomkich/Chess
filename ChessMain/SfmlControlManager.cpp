@@ -128,9 +128,37 @@ void SfmlControlManager::RefreshPositions() {
 }
 
 void SfmlControlManager::GenerateCommand(Coordinate from, Coordinate to, Color color) {
-	// simple move command
-	shared_ptr<MoveCommand> move = make_shared<MoveCommand>(from, to, color);
-	command_holder->SetCommand(move);
+	shared_ptr<Command> command;
+	auto rook = desk->GetFigure(to);
+	// for white figures castling
+	if (from == Coordinate(Horizontal::E, Vertical::One) &&
+		desk->GetFigure(from)->GetType() == FigureType::King) {	// if touched king in his base position
+		if (rook != nullptr && rook->GetType() == FigureType::Rook) {	// and then if side cell has rook
+			if (to == Coordinate(Horizontal::A, Vertical::One)) {
+				command = make_shared<CastlingCommand>(Flank::Queen, color);
+			}
+			else if (to == Coordinate(Horizontal::H, Vertical::One)) {
+				command = make_shared<CastlingCommand>(Flank::King, color);
+			}
+		}
+	}
+	// for black figures castling
+	else if (from == Coordinate(Horizontal::E, Vertical::Eigth) &&
+		desk->GetFigure(from)->GetType() == FigureType::King) {
+		if (rook != nullptr && rook->GetType() == FigureType::Rook) {
+			if (to == Coordinate(Horizontal::A, Vertical::Eigth)) {
+				command = make_shared<CastlingCommand>(Flank::Queen, color);
+			}
+			else if (to == Coordinate(Horizontal::H, Vertical::Eigth)) {
+				command = make_shared<CastlingCommand>(Flank::King, color);
+			}
+		}
+	}
+	
+	if (command == nullptr) {
+		command = make_shared<MoveCommand>(from, to, color);
+	}
+	command_holder->SetCommand(command);
 }
 
 void SfmlControlManager::NotifyGameStarted() {

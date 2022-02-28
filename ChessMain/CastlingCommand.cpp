@@ -190,13 +190,13 @@ tuple<shared_ptr<Figure>, shared_ptr<Figure>, list<shared_ptr<Figure>>> Castling
 
 		switch (flank) {
 		case Flank::Queen:
-			rook = desk->GetFigure(Coordinate(Horizontal::A, Vertical::One));
+			rook = desk->GetFigure(Coordinate(Horizontal::A, Vertical::Eigth));
 			other_figures.push_back(desk->GetFigure(Coordinate(Horizontal::B, Vertical::Eigth)));
 			other_figures.push_back(desk->GetFigure(Coordinate(Horizontal::C, Vertical::Eigth)));
 			other_figures.push_back(desk->GetFigure(Coordinate(Horizontal::D, Vertical::Eigth)));
 			break;
 		case Flank::King:
-			rook = desk->GetFigure(Coordinate(Horizontal::H, Vertical::One));
+			rook = desk->GetFigure(Coordinate(Horizontal::H, Vertical::Eigth));
 			other_figures.push_back(desk->GetFigure(Coordinate(Horizontal::F, Vertical::Eigth)));
 			other_figures.push_back(desk->GetFigure(Coordinate(Horizontal::G, Vertical::Eigth)));
 			break;
