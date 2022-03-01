@@ -25,6 +25,7 @@ bool DeskViewer::CheckCommand(shared_ptr<Command> command) {
 
 bool DeskViewer::PawnReachedEnd(Coordinate coord) {
 	auto figure = virtual_desk->GetFigure(coord);
+	if (figure->GetType() != FigureType::Pawn) return false;
 	switch (figure->GetColor()) {
 	case Color::White:
 		if (figure->GetPosition().ver == Vertical::Eigth) {
