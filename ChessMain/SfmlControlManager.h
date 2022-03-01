@@ -11,7 +11,7 @@ enum class AppState {
 };
 
 class SfmlControlManager : public Presenter, public enable_shared_from_this<SfmlControlManager> {
-	AppState state;
+	AppState app_state;
 	sf::RenderWindow window;
 	sf::Texture desk_texture;
 	sf::Texture figure_textures;
@@ -33,6 +33,7 @@ class SfmlControlManager : public Presenter, public enable_shared_from_this<Sfml
 public:
 	SfmlControlManager();
 	void InitResources();
+	void InitFigures();
 	void InitPointers();
 	void inputThread();
 	void Run();

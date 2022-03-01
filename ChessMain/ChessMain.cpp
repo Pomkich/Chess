@@ -22,6 +22,7 @@ int main()
     //game.StartNewGame();
     shared_ptr<SfmlControlManager> manager = make_shared<SfmlControlManager>();
     manager->InitPointers();
+    manager->InitResources();
     manager->Run();
 
     this_thread::sleep_for(chrono::hours(1));

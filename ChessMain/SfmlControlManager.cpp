@@ -1,10 +1,13 @@
 #include "SfmlControlManager.h"
 
 SfmlControlManager::SfmlControlManager() {
-	state = AppState::Game;
+	app_state = AppState::Game;
 }
 
 void SfmlControlManager::Run() {
+	std::thread input_thr(&SfmlControlManager::inputThread, shared_from_this());
+	input_thr.detach();
+
 	game->StartNewGame();
 }
 
@@ -27,33 +30,6 @@ void SfmlControlManager::InitResources() {
 	desk_sprite.setTexture(desk_texture);
 	desk_sprite.setScale((double)field_width * 8 / (double)desk_texture.getSize().x,
 		(double)field_height * 8 / (double)desk_texture.getSize().y);
-
-	for (int color = 0; color < 2; color++) {
-		const int texture_width = figure_textures.getSize().x;
-		const int texture_height = figure_textures.getSize().y;
-		const int figure_width = texture_width / 6;	// because here is only 6 figures
-		const int figure_heigth = texture_height / 2;	// because only two colors
-
-		list<shared_ptr<Figure>> figures = desk->GetFigures((Color)color);
-		if (figures.empty()) continue;
-
-		for (auto figure : figures) {
-			shared_ptr<sf::Sprite> figure_sprite = std::make_shared<sf::Sprite>();
-			figure_sprite->setTexture(figure_textures);
-
-			figure_sprite->setTextureRect(sf::IntRect(
-				texture_width - figure_width - (int)figure->GetType() * figure_width,
-				(int)figure->GetColor() * figure_heigth, figure_width, figure_heigth));
-			// resize for desk size
-			figure_sprite->setScale((double)field_width / figure_width, (double)field_height / figure_heigth);
-			//field_width * 7 - (int)figure->GetPosition().hor * field_width,
-			//field_height * 7 - (int)figure->GetPosition().ver * field_height
-			figure_sprite->setPosition(
-				field_width * 7 - (int)figure->GetPosition().hor * field_width,
-				field_height * 7 - (int)figure->GetPosition().ver * field_height);
-			figures_with_sprites[color].push_back(std::make_pair(figure_sprite, figure));
-		}
-	}
 
 	end_game_field.setSize(sf::Vector2f(field_width * 4, field_height * 2));
 	end_game_field.setPosition(sf::Vector2f(field_width * 2 , field_height * 3));
@@ -84,6 +60,37 @@ void SfmlControlManager::InitResources() {
 	new_game_text.setString("NEW GAME");
 }
 
+void SfmlControlManager::InitFigures() {
+	figures_with_sprites[0].clear();
+	figures_with_sprites[1].clear();
+	for (int color = 0; color < 2; color++) {
+		const int texture_width = figure_textures.getSize().x;
+		const int texture_height = figure_textures.getSize().y;
+		const int figure_width = texture_width / 6;	// because here is only 6 figures
+		const int figure_heigth = texture_height / 2;	// because only two colors
+
+		list<shared_ptr<Figure>> figures = desk->GetFigures((Color)color);
+		if (figures.empty()) continue;
+
+		for (auto figure : figures) {
+			shared_ptr<sf::Sprite> figure_sprite = std::make_shared<sf::Sprite>();
+			figure_sprite->setTexture(figure_textures);
+
+			figure_sprite->setTextureRect(sf::IntRect(
+				texture_width - figure_width - (int)figure->GetType() * figure_width,
+				(int)figure->GetColor() * figure_heigth, figure_width, figure_heigth));
+			// resize for desk size
+			figure_sprite->setScale((double)field_width / figure_width, (double)field_height / figure_heigth);
+			//field_width * 7 - (int)figure->GetPosition().hor * field_width,
+			//field_height * 7 - (int)figure->GetPosition().ver * field_height
+			figure_sprite->setPosition(
+				field_width * 7 - (int)figure->GetPosition().hor * field_width,
+				field_height * 7 - (int)figure->GetPosition().ver * field_height);
+			figures_with_sprites[color].push_back(std::make_pair(figure_sprite, figure));
+		}
+	}
+}
+
 void SfmlControlManager::inputThread() {
 	window.create(sf::VideoMode(field_width * 8, field_height * 8), "Chess");
 	std::pair<std::shared_ptr<sf::Sprite>, std::shared_ptr<Figure>> draged_figure;
@@ -93,20 +100,36 @@ void SfmlControlManager::inputThread() {
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-			else if (event.type == sf::Event::MouseButtonPressed) {
-				auto figure = GetFigureWithSprite(game->GetTurnColor(), sf::Mouse::getPosition(window));
-				if (figure.first != nullptr) {
-					draged_figure = figure;
+			switch (app_state) {
+			case AppState::Game:
+				if (event.type == sf::Event::Closed)
+					window.close();
+				else if (event.type == sf::Event::MouseButtonPressed) {
+					auto figure = GetFigureWithSprite(game->GetTurnColor(), sf::Mouse::getPosition(window));
+					if (figure.first != nullptr) {
+						draged_figure = figure;
+					}
 				}
-			}
-			else if (event.type == sf::Event::MouseButtonReleased && draged_figure.first != nullptr) {
-				Coordinate drop_coord(
-					(Horizontal)(7 - ((int)draged_figure.first->getPosition().x + (int)draged_figure.first->getGlobalBounds().width / 2) / field_width),
-					(Vertical)(7 - ((int)draged_figure.first->getPosition().y + (int)draged_figure.first->getGlobalBounds().height / 2) / field_height));
-				GenerateCommand(draged_figure.second->GetPosition(), drop_coord, game->GetTurnColor());
-				draged_figure.first.reset();
+				else if (event.type == sf::Event::MouseButtonReleased && draged_figure.first != nullptr) {
+					Coordinate drop_coord(
+						(Horizontal)(7 - ((int)draged_figure.first->getPosition().x + (int)draged_figure.first->getGlobalBounds().width / 2) / field_width),
+						(Vertical)(7 - ((int)draged_figure.first->getPosition().y + (int)draged_figure.first->getGlobalBounds().height / 2) / field_height));
+					GenerateCommand(draged_figure.second->GetPosition(), drop_coord, game->GetTurnColor());
+					draged_figure.first.reset();
+				}
+				break;
+
+			case AppState::End:
+				if (event.type == sf::Event::Closed)
+					window.close();
+				else if (event.type == sf::Event::MouseButtonPressed) {
+					if (end_game_field.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+						window.close();
+						thread new_game(&SfmlControlManager::Run, shared_from_this());
+						new_game.detach();
+					}
+				}
+				break;
 			}
 		}
 		// follow for cursor
@@ -117,7 +140,7 @@ void SfmlControlManager::inputThread() {
 		}
 
 		window.clear();
-		switch (state) {
+		switch (app_state) {
 		case AppState::Game:
 			window.draw(desk_sprite);
 			for (auto sprite : figures_with_sprites[0]) {
@@ -241,11 +264,8 @@ void SfmlControlManager::NotifyPawnReachedEnd(Coordinate coord, Color color) {
 
 void SfmlControlManager::NotifyGameStarted() {
 	cout << "game started" << endl;
-
-	InitResources();
-
-	std::thread input_thr(&SfmlControlManager::inputThread, shared_from_this());
-	input_thr.detach();
+	InitFigures();
+	app_state = AppState::Game;
 }
 
 void SfmlControlManager::NotifyKingShah(Color oposite_color) {
@@ -255,7 +275,19 @@ void SfmlControlManager::NotifyKingShah(Color oposite_color) {
 
 void SfmlControlManager::NotifyGameEnd(FinalState state) {
 	cout << "game end" << endl;
-
+	app_state = AppState::End;
+	switch (state)
+	{
+	case FinalState::WhiteCheckmated:
+		end_game_message.setString("Black player won");
+		break;
+	case FinalState::BlackCheckmated:
+		end_game_message.setString("White player won");
+		break;
+	case FinalState::Pat:
+		end_game_message.setString("       Tie      ");
+		break;
+	}
 	RefreshPositions();
 }
 
