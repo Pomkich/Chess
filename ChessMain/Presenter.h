@@ -8,6 +8,7 @@ protected:
 public:
 	virtual void SetCommandHolder(shared_ptr<CommandHolder> cmd_hld) { command_holder = cmd_hld; }
 
+	virtual void NotifyPawnReachedEnd(Coordinate coord, Color color) = 0;
 	virtual void NotifyGameStarted() = 0;
 	virtual void NotifyKingShah(Color oposite_color) = 0;
 	virtual void NotifyGameEnd(FinalState state) = 0;

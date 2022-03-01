@@ -29,6 +29,7 @@ public:
 	void RefreshPositions();
 	void GenerateCommand(Coordinate from, Coordinate to, Color color);
 
+	virtual void NotifyPawnReachedEnd(Coordinate coord, Color color) override;
 	virtual void NotifyGameStarted() override;
 	virtual void NotifyKingShah(Color oposite_color) override;
 	virtual void NotifyGameEnd(FinalState state) override;

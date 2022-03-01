@@ -159,6 +159,43 @@ void SfmlControlManager::GenerateCommand(Coordinate from, Coordinate to, Color c
 	command_holder->SetCommand(command);
 }
 
+void SfmlControlManager::NotifyPawnReachedEnd(Coordinate coord, Color color) {
+	cout << "pawn reached end" << endl;
+	desk->DeleteFigure(coord);
+
+	for (auto it = figures_with_sprites[(int)color].begin(); it != figures_with_sprites[(int)color].end(); it++) {
+		if (it->second.use_count() == 2) {	// i dont now why, but here is 2 pointers, destructor calls after enemy turn (???)
+			it->second.reset();
+			it->first.reset();
+			figures_with_sprites[(int)color].erase(it);
+			
+			desk->PlaceFigure(FigureType::Queen, color, coord);
+			auto figure = desk->GetFigure(coord);
+			
+			figure->SetPosition(coord);
+			
+			const int texture_width = figure_textures.getSize().x;
+			const int texture_height = figure_textures.getSize().y;
+			const int figure_width = texture_width / 6;
+			const int figure_heigth = texture_height / 2;
+
+			shared_ptr<sf::Sprite> figure_sprite = std::make_shared<sf::Sprite>();
+			figure_sprite->setTexture(figure_textures);
+
+			figure_sprite->setTextureRect(sf::IntRect(
+				texture_width - figure_width - (int)figure->GetType() * figure_width,
+				(int)figure->GetColor() * figure_heigth, figure_width, figure_heigth));
+			figure_sprite->setScale((double)field_width / figure_width, (double)field_height / figure_heigth);
+			figure_sprite->setPosition(
+				field_width * 7 - (int)figure->GetPosition().hor * field_width,
+				field_height * 7 - (int)figure->GetPosition().ver * field_height);
+			figures_with_sprites[(int)color].push_back(std::make_pair(figure_sprite, figure));
+
+			break;
+		}
+	}
+}
+
 void SfmlControlManager::NotifyGameStarted() {
 	cout << "game started" << endl;
 
@@ -186,9 +223,11 @@ void SfmlControlManager::NotifyFigureMoved() {
 void SfmlControlManager::NotifyFigureDeleted(Color color) {
 	for (auto it = figures_with_sprites[(int)color].begin(); it != figures_with_sprites[(int)color].end(); it++) {
 		if (it->second.use_count() == 1) {
+			cout << "use count " << it->second.use_count() << " ";
 			it->second.reset();
 			it->first.reset();
 			figures_with_sprites[(int)color].erase(it);
+			cout << "erased" << endl;
 			break;
 		}
 	}

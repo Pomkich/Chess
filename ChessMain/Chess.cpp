@@ -78,9 +78,7 @@ void Chess::GameLoop() {
 		// priority of events: game end, king shah, figure delete, figure moved
 		if (viewer->CheckCommand(command)) {
 			if (viewer->PawnReachedEnd(command->GetMovedFigureCoord())) {
-				cout << "reached: " << (int)player_turn << endl;
-				desk->DeleteFigure(command->GetMovedFigureCoord());
-				desk->PlaceFigure(FigureType::Queen, player_turn, command->GetMovedFigureCoord());
+				presenter.lock()->NotifyPawnReachedEnd(command->GetMovedFigureCoord(), player_turn);
 				desk->CalculateAttackedCells();
 			}
 			if (viewer->KingCheckmate(opposite_color, desk->GetFigure(command->GetMovedFigureCoord()))) {
