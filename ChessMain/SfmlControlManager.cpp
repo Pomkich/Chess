@@ -1,7 +1,7 @@
 #include "SfmlControlManager.h"
 
 SfmlControlManager::SfmlControlManager() {
-	
+	state = AppState::Game;
 }
 
 void SfmlControlManager::Run() {
@@ -54,6 +54,34 @@ void SfmlControlManager::InitResources() {
 			figures_with_sprites[color].push_back(std::make_pair(figure_sprite, figure));
 		}
 	}
+
+	end_game_field.setSize(sf::Vector2f(field_width * 4, field_height * 2));
+	end_game_field.setPosition(sf::Vector2f(field_width * 2 , field_height * 3));
+	end_game_field.setOutlineThickness(6.0);
+	end_game_field.setOutlineColor(sf::Color::Black);
+	end_game_field.setFillColor(sf::Color::White);
+
+	new_game_button.setPosition(end_game_field.getPosition() + sf::Vector2f(
+		end_game_field.getSize().x / 4,
+		end_game_field.getSize().y / 2));
+	new_game_button.setFillColor(sf::Color::Black);
+	new_game_button.setSize(sf::Vector2f(field_width * 2, field_height * 0.5));
+
+	if (!times_new_roman.loadFromFile("resourses/times_new_roman.ttf")) {
+		cout << "can't load font" << endl;
+	}
+
+	end_game_message.setFont(times_new_roman);
+	end_game_message.setCharacterSize(field_width/2);
+	end_game_message.setFillColor(sf::Color::Black);
+	end_game_message.setPosition(end_game_field.getPosition() + sf::Vector2f(field_width / 6.25, field_height / 6.25));
+	end_game_message.setString("White player won");
+
+	new_game_text.setFont(times_new_roman);
+	new_game_text.setCharacterSize(field_width / 3);
+	new_game_text.setFillColor(sf::Color::White);
+	new_game_text.setPosition(new_game_button.getPosition() + sf::Vector2f(field_width / 10, field_height / 20));
+	new_game_text.setString("NEW GAME");
 }
 
 void SfmlControlManager::inputThread() {
@@ -74,9 +102,6 @@ void SfmlControlManager::inputThread() {
 				}
 			}
 			else if (event.type == sf::Event::MouseButtonReleased && draged_figure.first != nullptr) {
-				//draged_figure.first->setPosition(
-				//	((int)draged_figure.first->getPosition().x + (int)draged_figure.first->getGlobalBounds().width / 2) / field_width * field_width,
-				//	((int)draged_figure.first->getPosition().y + (int)draged_figure.first->getGlobalBounds().height / 2) / field_height * field_height);
 				Coordinate drop_coord(
 					(Horizontal)(7 - ((int)draged_figure.first->getPosition().x + (int)draged_figure.first->getGlobalBounds().width / 2) / field_width),
 					(Vertical)(7 - ((int)draged_figure.first->getPosition().y + (int)draged_figure.first->getGlobalBounds().height / 2) / field_height));
@@ -92,12 +117,30 @@ void SfmlControlManager::inputThread() {
 		}
 
 		window.clear();
-		window.draw(desk_sprite);
-		for (auto sprite : figures_with_sprites[0]) {
-			window.draw(*sprite.first);
-		}
-		for (auto sprite : figures_with_sprites[1]) {
-			window.draw(*sprite.first);
+		switch (state) {
+		case AppState::Game:
+			window.draw(desk_sprite);
+			for (auto sprite : figures_with_sprites[0]) {
+				window.draw(*sprite.first);
+			}
+			for (auto sprite : figures_with_sprites[1]) {
+				window.draw(*sprite.first);
+			}
+			break;
+
+		case AppState::End:
+			window.draw(desk_sprite);
+			for (auto sprite : figures_with_sprites[0]) {
+				window.draw(*sprite.first);
+			}
+			for (auto sprite : figures_with_sprites[1]) {
+				window.draw(*sprite.first);
+			}
+			window.draw(end_game_field);
+			window.draw(end_game_message);
+			window.draw(new_game_button);
+			window.draw(new_game_text);
+			break;
 		}
 		window.display();
 
@@ -212,6 +255,7 @@ void SfmlControlManager::NotifyKingShah(Color oposite_color) {
 
 void SfmlControlManager::NotifyGameEnd(FinalState state) {
 	cout << "game end" << endl;
+
 	RefreshPositions();
 }
 
@@ -238,3 +282,8 @@ void SfmlControlManager::NotifyBadCommand() {
 	cout << "bad command" << endl;
 	RefreshPositions();
 }
+
+
+//draged_figure.first->setPosition(
+				//	((int)draged_figure.first->getPosition().x + (int)draged_figure.first->getGlobalBounds().width / 2) / field_width * field_width,
+				//	((int)draged_figure.first->getPosition().y + (int)draged_figure.first->getGlobalBounds().height / 2) / field_height * field_height);

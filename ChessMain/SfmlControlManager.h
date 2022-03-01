@@ -6,12 +6,23 @@
 #include "Chess.h"
 #include "Presenter.h"
 
+enum class AppState {
+	Game, End
+};
+
 class SfmlControlManager : public Presenter, public enable_shared_from_this<SfmlControlManager> {
+	AppState state;
 	sf::RenderWindow window;
 	sf::Texture desk_texture;
 	sf::Texture figure_textures;
 	sf::Sprite desk_sprite;
 	std::array<std::vector<std::pair<std::shared_ptr<sf::Sprite>, std::shared_ptr<Figure>>>, 2> figures_with_sprites;
+
+	sf::RectangleShape end_game_field;
+	sf::RectangleShape new_game_button;
+	sf::Font times_new_roman;
+	sf::Text end_game_message;
+	sf::Text new_game_text;
 
 	std::shared_ptr<Chess> game;
 	std::shared_ptr<Desk> desk;
