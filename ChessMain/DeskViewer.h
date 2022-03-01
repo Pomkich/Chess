@@ -16,6 +16,7 @@ public:
 	DeskViewer();
 	void SetDesk(shared_ptr<Desk> n_desk);
 	bool CheckCommand(shared_ptr<Command> command);
+	bool PawnReachedEnd(Coordinate coord);
 	bool KingUnderAttack(Color color);
 	bool KingCheckmate(Color color, shared_ptr<Figure> attacked_figure);
 	bool KingPat(Color color);

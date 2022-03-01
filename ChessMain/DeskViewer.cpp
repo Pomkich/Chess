@@ -23,6 +23,24 @@ bool DeskViewer::CheckCommand(shared_ptr<Command> command) {
 	return false;
 }
 
+bool DeskViewer::PawnReachedEnd(Coordinate coord) {
+	auto figure = virtual_desk->GetFigure(coord);
+	switch (figure->GetColor()) {
+	case Color::White:
+		if (figure->GetPosition().ver == Vertical::Eigth) {
+			return true;
+		}
+		break;
+
+	case Color::Black:
+		if (figure->GetPosition().ver == Vertical::One) {
+			return true;
+		}
+		break;
+	}
+	return false;
+}
+
 // search for the check
 bool DeskViewer::KingUnderAttack(Color color) {
 	shared_ptr<Figure> king = virtual_desk->GetKing(color);

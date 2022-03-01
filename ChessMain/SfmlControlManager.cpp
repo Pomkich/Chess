@@ -68,10 +68,8 @@ void SfmlControlManager::inputThread() {
 			if (event.type == sf::Event::Closed)
 				window.close();
 			else if (event.type == sf::Event::MouseButtonPressed) {
-				std::cout << "button pressed" << std::endl;
 				auto figure = GetFigureWithSprite(game->GetTurnColor(), sf::Mouse::getPosition(window));
 				if (figure.first != nullptr) {
-					std::cout << "here is figure" << std::endl;;
 					draged_figure = figure;
 				}
 			}
@@ -186,9 +184,7 @@ void SfmlControlManager::NotifyFigureMoved() {
 }
 
 void SfmlControlManager::NotifyFigureDeleted(Color color) {
-	cout << "figure deleted" << endl;
 	for (auto it = figures_with_sprites[(int)color].begin(); it != figures_with_sprites[(int)color].end(); it++) {
-		cout << "use count: " << it->second.use_count() << endl;
 		if (it->second.use_count() == 1) {
 			it->second.reset();
 			it->first.reset();
