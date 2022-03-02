@@ -102,8 +102,11 @@ void SfmlControlManager::inputThread() {
 		{
 			switch (app_state) {
 			case AppState::Game:
-				if (event.type == sf::Event::Closed)
+				if (event.type == sf::Event::Closed) {
 					window.close();
+					running_bool = false;
+					running_cv.notify_all();
+				}
 				else if (event.type == sf::Event::MouseButtonPressed) {
 					auto figure = GetFigureWithSprite(game->GetTurnColor(), sf::Mouse::getPosition(window));
 					if (figure.first != nullptr) {
@@ -120,8 +123,11 @@ void SfmlControlManager::inputThread() {
 				break;
 
 			case AppState::End:
-				if (event.type == sf::Event::Closed)
+				if (event.type == sf::Event::Closed) {
 					window.close();
+					running_bool = false;
+					running_cv.notify_all();
+				}
 				else if (event.type == sf::Event::MouseButtonPressed) {
 					if (end_game_field.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 						window.close();
@@ -285,7 +291,7 @@ void SfmlControlManager::NotifyGameEnd(FinalState state) {
 		end_game_message.setString("White player won");
 		break;
 	case FinalState::Pat:
-		end_game_message.setString("       Tie      ");
+		end_game_message.setString("      Draw      ");
 		break;
 	}
 	RefreshPositions();

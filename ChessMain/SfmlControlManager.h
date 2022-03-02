@@ -6,6 +6,10 @@
 #include "Chess.h"
 #include "Presenter.h"
 
+extern mutex mut;
+extern condition_variable running_cv;
+extern bool running_bool;
+
 enum class AppState {
 	Game, End
 };
