@@ -57,7 +57,7 @@ void Desk::CalculateAttackedCells() {
 		if (figure->GetType() == FigureType::King) white_king = figure;
 
 		figure->CalculateAttackedCells(field);
-		for (auto cell : figure->GetMoveCells()) {
+		for (auto cell : figure->GetAttackCells()) {
 			attacked_cells[(int)Color::White].insert(cell);
 		}
 	}
@@ -66,7 +66,7 @@ void Desk::CalculateAttackedCells() {
 		if (figure->GetType() == FigureType::King) black_king = figure;
 
 		figure->CalculateAttackedCells(field);
-		for (auto cell : figure->GetMoveCells()) {
+		for (auto cell : figure->GetAttackCells()) {
 			attacked_cells[(int)Color::Black].insert(cell);
 		}
 	}
@@ -74,10 +74,11 @@ void Desk::CalculateAttackedCells() {
 	// removing cells of white king, that would call shah
 	set<Coordinate> marked_white_cells;	// for reason that if distance between kings equal 1 cell, one of him can step the fourth.
 										// So needed to delete cells from attacked_cells later
-	for (auto cell : white_king->GetMoveCells()) {
+	for (auto cell : white_king->GetAttackCells()) {
 		for (auto attacked_cell : attacked_cells[(int)Color::Black]) {
 			if (cell == attacked_cell) {
 				white_king->RemoveMoveCell(cell);
+				white_king->RemoveAttackCell(cell);
 				marked_white_cells.insert(cell);
 				break;
 			}
@@ -89,6 +90,7 @@ void Desk::CalculateAttackedCells() {
 		for (auto attacked_cell : attacked_cells[(int)Color::White]) {
 			if (cell == attacked_cell) {
 				black_king->RemoveMoveCell(cell);
+				black_king->RemoveAttackCell(cell);
 				marked_black_cells.insert(cell);
 				break;
 			}

@@ -109,12 +109,10 @@ bool DeskViewer::KingCheckmate(Color color, shared_ptr<Figure> attacking_figure)
 // search for pat
 bool DeskViewer::KingPat(Color color) {
 	if (KingUnderAttack(color)) return false;
-	auto attacked_cells = virtual_desk->GetAttackedCells(color);
-	for (auto cell : attacked_cells) {
-		if (virtual_desk->GetFigure(cell) == nullptr ||
-			virtual_desk->GetFigure(cell)->GetColor() != color) {
-			return false;
-		}
+	auto figures = virtual_desk->GetFigures(color);
+	for (auto figure : figures) {
+		auto move_cells = figure->GetMoveCells();
+		if (!move_cells.empty()) return false;
 	}
 
 	return true;

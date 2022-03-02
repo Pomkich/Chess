@@ -37,8 +37,11 @@ public:
 			hor += vec.first;
 			ver += vec.second;
 
-			if (Coordinate::InBounds(hor, ver) && desk[ver][hor].has_figure) {	// if cell has enemy figure
-				move_cells.push_back(Coordinate((Horizontal)hor, (Vertical)ver));
+			if (Coordinate::InBounds(hor, ver)) {	// if cell has enemy figure
+				attack_cells.push_back(Coordinate((Horizontal)hor, (Vertical)ver));
+				if (desk[(int)ver][(int)hor].has_figure && desk[(int)ver][(int)hor].figure_ptr->GetColor() != color) {
+					move_cells.push_back(Coordinate((Horizontal)hor, (Vertical)ver));
+				}
 			}
 		}
 	}
@@ -46,6 +49,7 @@ public:
 	// Pawn can attack side cells, but but moves only forward
 	virtual void CalculateAttackedCells(const array<array<Cell, field_size>, field_size> desk) override {
 		move_cells.clear();
+		attack_cells.clear();
 		CheckSideCells(desk);
 
 		int hor = (int)current_pos.hor, ver = (int)current_pos.ver;

@@ -19,6 +19,7 @@ public:
 
 	virtual void CalculateAttackedCells(const array<array<Cell, field_size>, field_size> desk) override {
 		move_cells.clear();
+		attack_cells.clear();
 
 		for (auto move_vec : move_vectors) {
 			pair<int, int> coord = current_pos.ToInt();
@@ -30,9 +31,11 @@ public:
 						(desk[coord.second][coord.first].figure_ptr->GetType() == FigureType::King &&
 						desk[coord.second][coord.first].figure_ptr->GetColor() != color)) {
 						move_cells.push_back(Coordinate((Horizontal)coord.first, (Vertical)coord.second));
+						attack_cells.push_back(Coordinate((Horizontal)coord.first, (Vertical)coord.second));
 					}
 					else {
 						move_cells.push_back(Coordinate((Horizontal)coord.first, (Vertical)coord.second));
+						attack_cells.push_back(Coordinate((Horizontal)coord.first, (Vertical)coord.second));
 						break;
 					}
 				}
