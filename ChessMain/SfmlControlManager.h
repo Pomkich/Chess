@@ -31,6 +31,8 @@ class SfmlControlManager : public Presenter, public enable_shared_from_this<Sfml
 	std::shared_ptr<Chess> game;
 	std::shared_ptr<Desk> desk;
 
+	std::mutex render_mutex;
+
 	const int field_width = 100;
 	const int field_height = 100;
 

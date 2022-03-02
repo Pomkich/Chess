@@ -106,6 +106,7 @@ void SfmlControlManager::inputThread() {
 					window.close();
 					running_bool = false;
 					running_cv.notify_all();
+					return;
 				}
 				else if (event.type == sf::Event::MouseButtonPressed) {
 					auto figure = GetFigureWithSprite(game->GetTurnColor(), sf::Mouse::getPosition(window));
@@ -127,12 +128,14 @@ void SfmlControlManager::inputThread() {
 					window.close();
 					running_bool = false;
 					running_cv.notify_all();
+					return;
 				}
 				else if (event.type == sf::Event::MouseButtonPressed) {
 					if (end_game_field.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 						window.close();
 						thread new_game(&SfmlControlManager::Run, shared_from_this());
 						new_game.detach();
+						return;
 					}
 				}
 				break;
@@ -145,6 +148,7 @@ void SfmlControlManager::inputThread() {
 				sf::Mouse::getPosition(window).y - draged_figure.first->getGlobalBounds().height / 2);
 		}
 
+		unique_lock<mutex> lock(render_mutex);
 		window.clear();
 		switch (app_state) {
 		case AppState::Game:
@@ -232,6 +236,7 @@ void SfmlControlManager::GenerateCommand(Coordinate from, Coordinate to, Color c
 }
 
 void SfmlControlManager::NotifyPawnReachedEnd(Coordinate coord, Color color) {
+	unique_lock<mutex> lock(render_mutex);
 	cout << "pawn reached end" << endl;
 	desk->DeleteFigure(coord);
 
@@ -269,6 +274,7 @@ void SfmlControlManager::NotifyPawnReachedEnd(Coordinate coord, Color color) {
 }
 
 void SfmlControlManager::NotifyGameStarted() {
+	unique_lock<mutex> lock(render_mutex);
 	cout << "game started" << endl;
 	InitFigures();
 	app_state = AppState::Game;
@@ -303,6 +309,7 @@ void SfmlControlManager::NotifyFigureMoved() {
 }
 
 void SfmlControlManager::NotifyFigureDeleted(Color color) {
+	unique_lock<mutex> lock(render_mutex);
 	for (auto it = figures_with_sprites[(int)color].begin(); it != figures_with_sprites[(int)color].end(); it++) {
 		if (it->second.use_count() == 1) {
 			cout << "use count " << it->second.use_count() << " ";
