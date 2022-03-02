@@ -7,6 +7,7 @@
 #include "DeskViewerTest.h"
 #include "Chess.h"
 #include "SfmlControlManager.h"
+#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 
 using namespace std;
 

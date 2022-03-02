@@ -92,7 +92,7 @@ void SfmlControlManager::InitFigures() {
 }
 
 void SfmlControlManager::inputThread() {
-	window.create(sf::VideoMode(field_width * 8, field_height * 8), "Chess");
+	window.create(sf::VideoMode(field_width * 8, field_height * 8), "Chess", sf::Style::Titlebar | sf::Style::Close);
 	std::pair<std::shared_ptr<sf::Sprite>, std::shared_ptr<Figure>> draged_figure;
 
 	while (window.isOpen())
