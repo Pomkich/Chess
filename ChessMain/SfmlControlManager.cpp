@@ -324,7 +324,26 @@ void SfmlControlManager::NotifyFigureDeleted(Color color) {
 }
 
 void SfmlControlManager::NotifyBadCommand() {
-	cout << "bad command" << endl;
+
+	for (auto figure = figures_with_sprites[0].begin(); figure != figures_with_sprites[0].end(); figure++) 
+	{
+		if (figure->second.use_count() == 1) {
+			figure->second = desk->GetFigure(Coordinate(
+				(Horizontal)(7 - (figure->first->getPosition().x / field_width)),
+				(Vertical)(7 - (figure->first->getPosition().y / field_height))));
+		}
+	}
+
+	for (auto figure = figures_with_sprites[1].begin(); figure != figures_with_sprites[1].end(); figure++)
+	{
+		if (figure->second.use_count() == 1) {
+			figure->second = desk->GetFigure(Coordinate(
+				(Horizontal)(7 - (figure->first->getPosition().x / field_width)),
+				(Vertical)(7 - (figure->first->getPosition().y / field_height))));
+		}
+	}
+
+
 	RefreshPositions();
 }
 
