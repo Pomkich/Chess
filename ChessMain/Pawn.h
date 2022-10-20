@@ -38,8 +38,8 @@ public:
 			ver += vec.second;
 
 			if (Coordinate::InBounds(hor, ver)) {	// if cell has enemy figure
-				attack_cells.push_back(Coordinate((Horizontal)hor, (Vertical)ver));
 				if (desk[(int)ver][(int)hor].has_figure && desk[(int)ver][(int)hor].figure_ptr->GetColor() != color) {
+					attack_cells.push_back(Coordinate((Horizontal)hor, (Vertical)ver));
 					move_cells.push_back(Coordinate((Horizontal)hor, (Vertical)ver));
 				}
 			}
