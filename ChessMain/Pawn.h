@@ -38,9 +38,11 @@ public:
 			ver += vec.second;
 
 			if (Coordinate::InBounds(hor, ver)) {	// if cell has enemy figure
-				if (desk[(int)ver][(int)hor].has_figure && desk[(int)ver][(int)hor].figure_ptr->GetColor() != color) {
+				if (desk[(int)ver][(int)hor].has_figure) {
 					attack_cells.push_back(Coordinate((Horizontal)hor, (Vertical)ver));
-					move_cells.push_back(Coordinate((Horizontal)hor, (Vertical)ver));
+					if (desk[(int)ver][(int)hor].figure_ptr->GetColor() != color) {
+						move_cells.push_back(Coordinate((Horizontal)hor, (Vertical)ver));
+					}
 				}
 			}
 		}
