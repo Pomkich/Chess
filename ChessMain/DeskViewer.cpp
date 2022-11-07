@@ -73,6 +73,8 @@ bool DeskViewer::KingCheckmate(Color color, shared_ptr<Figure> attacking_figure)
 	if (!KingUnderAttack(color)) return false;	// maybe should erase this string because components that will use this method will check it
 
 	set<Coordinate> attacked_cells = virtual_desk->GetAttackedCells(color);
+	virtual_desk->CalculateMoveCells();
+	set<Coordinate> move_cells = virtual_desk->GetMoveCells(color);
 	
 	// check king move
 	auto king = virtual_desk->GetKing(color);
@@ -95,7 +97,7 @@ bool DeskViewer::KingCheckmate(Color color, shared_ptr<Figure> attacking_figure)
 		auto cells_on_attack_vector = CalculateAttackVector(attacking_figure->GetPosition(), king->GetPosition());
 		// trying to find turn, that can block attack vector;
 		for (auto vec_cell : cells_on_attack_vector) {
-			for (auto attacked_cell : attacked_cells) {
+			for (auto attacked_cell : move_cells) {
 				if (vec_cell == attacked_cell) {
 					return false;
 				}

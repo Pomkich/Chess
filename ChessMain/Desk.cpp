@@ -136,6 +136,24 @@ void Desk::CalculateAttackedCells() {
 	}
 }
 
+void Desk::CalculateMoveCells() {
+	for (auto figure : figures[(int)Color::White]) {
+		for (auto cell : figure->GetMoveCells()) {
+			move_cells[(int)Color::White].insert(cell);
+		}
+	}
+
+	for (auto figure : figures[(int)Color::Black]) {
+		for (auto cell : figure->GetMoveCells()) {
+			move_cells[(int)Color::Black].insert(cell);
+		}
+	}
+}
+
+set<Coordinate> Desk::GetMoveCells(Color col) {
+	return move_cells[(int)col];
+}
+
 set<Coordinate> Desk::GetAttackedCells(Color col) {
 	return attacked_cells[(int)col];
 }

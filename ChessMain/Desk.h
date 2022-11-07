@@ -22,6 +22,7 @@ private:
 	array<array<Cell, field_size>, field_size> field;	// cells of game field
 	list<shared_ptr<Figure>> figures[2];	// figures of each player
 	set<Coordinate> attacked_cells[2];	// one coordinate can't be duplicated, so set is used
+	set<Coordinate> move_cells[2];
 
 public:
 	Desk();
@@ -36,6 +37,9 @@ public:
 
 	void CalculateAttackedCells();
 	set<Coordinate> GetAttackedCells(Color col);
+
+	void CalculateMoveCells();
+	set<Coordinate> GetMoveCells(Color col);
 
 	void Draw();
 };
