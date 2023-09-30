@@ -25,3 +25,23 @@ set(SFML_DIR ${MY_SFML_PATH})
 set(SFML_STATIC_LIBRARIES TRUE)
 find_package(SFML 2 COMPONENTS system window graphics REQUIRED)
 target_link_libraries(main PRIVATE sfml-system sfml-window sfml-graphics)
+
+install(DIRECTORY resourses
+        CONFIGURATIONS Debug
+        RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/chess
+)
+
+install(DIRECTORY resourses
+        CONFIGURATIONS Release
+        RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/chess
+)
+
+install(TARGETS main
+        CONFIGURATIONS Release
+        RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/chess
+)
+
+install(TARGETS main
+        CONFIGURATIONS Release
+        RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/chess
+)
